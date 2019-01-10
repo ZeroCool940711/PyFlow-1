@@ -9,8 +9,23 @@ class AnyPin(PinWidgetBase):
         self.supportedDataTypesList = tuple([x for x in DataTypes])
         self.origDataType = DataTypes.Any
         self._free = True
+        self.origSetData = self.setData
+        self.origSetData = self.setData
+        self.super = None
     def supportedDataTypes(self):
         return self.supportedDataTypesList
+
+    def serialize(self):
+        from ..Pins import CreatePin
+        dt = super(PinWidgetBase, self).serialize()
+        if self.dataType !=  DataTypes.Any:
+            a = CreatePin("", None, self.dataType, 0)
+            a.setData(self._data)
+            data = a.serialize()
+            dt['value'] =data["value"]
+            del a                            
+        return dt
+
 
     @staticmethod
     def defcolor():
@@ -22,11 +37,15 @@ class AnyPin(PinWidgetBase):
     def pinDataTypeHint():
         return DataTypes.Any, ''
 
+    @staticmethod
+    def processData( data):
+        return data
+
     def setData(self, data):
-        try:
-            self._data = data
-        except:
-            self._data =  self.defaultValue()
+        if self.dataType != DataTypes.Any:
+            if self.super != None:
+                data = self.super.processData(data)
+        self._data = data
         PinWidgetBase.setData(self, self._data)
 
     def pinConnected(self, other):
@@ -113,6 +132,7 @@ class AnyPin(PinWidgetBase):
             
        
     def setDefault(self):
+        self.super = None
         self.dataType = DataTypes.Any
         self.color = self.defcolor
         self.setDefaultValue(None)
@@ -121,6 +141,7 @@ class AnyPin(PinWidgetBase):
         self.OnPinChanged.emit(self)   
         self.update()
     def setType(self,other):
+        self.super = other.__class__
         self.dataType = other.dataType
         self.color = other.color
         if str(type(self._data)) == "<type 'unicode'>":
@@ -132,3 +153,7 @@ class AnyPin(PinWidgetBase):
             e.setColor( self.color())
         self.OnPinChanged.emit(self)         
         self.update()     
+
+    """    
+
+    """

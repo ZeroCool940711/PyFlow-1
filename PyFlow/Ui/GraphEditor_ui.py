@@ -11,14 +11,14 @@ from Qt import QtCompat, QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
+        MainWindow.setObjectName("PyFlow")
         MainWindow.setEnabled(True)
         MainWindow.resize(1608, 875)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/icons/resources/LogoBpApp.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
-        MainWindow.setDocumentMode(False)
-        MainWindow.setDockOptions(QtWidgets.QMainWindow.AllowTabbedDocks)
+        #MainWindow.setDocumentMode(False)
+        #MainWindow.setDockOptions(QtWidgets.QMainWindow.AllowTabbedDocks)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         self.centralwidget.setObjectName("centralwidget")

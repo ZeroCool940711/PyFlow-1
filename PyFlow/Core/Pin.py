@@ -62,12 +62,7 @@ class PinWidgetBase(QGraphicsWidget, PinBase):
         self._dirty_pen = QtGui.QPen(Colors.DirtyPen, 0.5, QtCore.Qt.DashLine, QtCore.Qt.RoundCap, QtCore.Qt.RoundJoin)
         
         self.pinImage = QtGui.QImage(':/icons/resources/array.png')
-        self.bLabelHidden = False
-        self.bAnimate = False
-        self._val = 0
-        self.constraint = None
-        self.dynamic = False
-        self._isEditable = False
+
         
     def updateConstraint(self,constraint):
         self.constraint = constraint
@@ -176,8 +171,6 @@ class PinWidgetBase(QGraphicsWidget, PinBase):
 
     def serialize(self):
         data = PinBase.serialize(self)
-        data['bLabelHidden'] = self.bLabelHidden
-        data["editable"] = self._isEditable
         return data
 
     def ungrabMouseEvent(self, event):

@@ -1,4 +1,4 @@
-from Qt.QtWidgets import QApplication,QStyleFactory
+from Qt.QtWidgets import QApplication,QStyleFactory,QMainWindow
 import sys
 from os import path
 from PyFlow.App import PyFlow
@@ -11,7 +11,6 @@ SETTINGS_PATH = FILE_DIR + "PyFlow/appConfig.ini"
 app = QApplication(sys.argv)
 
 app.setStyle(QStyleFactory.create("plastique"))
-
 instance = PyFlow.instance()
 app.setActiveWindow(instance)
 instance.show()

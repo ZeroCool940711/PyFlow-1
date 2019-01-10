@@ -1,0 +1,1366 @@
+{
+  "root": {
+    "nodes": [
+      {
+        "inputs": [], 
+        "meta": {
+          "var": {}, 
+          "label": ""
+        }, 
+        "name": "__scene_outputs__", 
+        "outputs": [], 
+        "y": -756.5824398261035, 
+        "x": -359.63297593044126, 
+        "computeCode": "def compute(self):\n    '''\n    node calculations here\n    '''\n    # getting data from inputs\n    # do stuff\n    # write data to outputs\n    return\n", 
+        "type": "scene_outputs", 
+        "uuid": "1a274230-44b6-45c9-9e31-51bbb3333e4e"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "s", 
+            "deletable": false, 
+            "dataType": 3, 
+            "editable": false, 
+            "curr_dataType": 3, 
+            "bLabelHidden": false, 
+            "value": "pCube2", 
+            "uuid": "ff4be03a-556d-4857-af0e-94782c6f11e6"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "makeString"
+        }, 
+        "name": "makeString1", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": true, 
+            "name": "out", 
+            "deletable": false, 
+            "dataType": 3, 
+            "editable": false, 
+            "curr_dataType": 3, 
+            "bLabelHidden": false, 
+            "value": "pCube2", 
+            "uuid": "e0002583-a428-46cd-ba2c-f8c9ffc0ddde"
+          }
+        ], 
+        "y": -660.3058305549091, 
+        "x": -676.6572308201215, 
+        "computeCode": "def compute(self):\n    # arguments will be taken from inputs\n    kwargs = {}\n    for i in self.inputs.values():\n        if i.dataType is not DataTypes.Exec:\n            kwargs[i.name] = i.getData()\n    for ref in refs:\n        if ref.dataType is not DataTypes.Exec:\n            kwargs[ref.name] = ref.setData\n    result = foo(**kwargs)\n    if returnType is not None:\n        self.setData('out', result)\n    if nodeType == NodeTypes.Callable:\n        outExec.call()\n", 
+        "type": "makeString", 
+        "uuid": "a3a3bea7-e349-4007-80b4-284092668b07"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "entity", 
+            "deletable": false, 
+            "dataType": 0, 
+            "editable": false, 
+            "curr_dataType": 8, 
+            "bLabelHidden": false, 
+            "value": [
+              -4.923045754375529, 
+              4.682044963700224, 
+              4.656928162484937
+            ], 
+            "uuid": "47f5dc15-5fd4-4cbf-9e31-e86c36e80f97"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "inExec", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": true, 
+            "value": null, 
+            "uuid": "9fdf6426-d472-4cd3-a271-b69173af370e"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "pyprint"
+        }, 
+        "name": "pyprint", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "outExec", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": true, 
+            "value": null, 
+            "uuid": "32c05938-8237-4d47-b966-3267577b028e"
+          }
+        ], 
+        "y": -577.6758595587711, 
+        "x": -687.4781196640689, 
+        "computeCode": "def compute(self):\n    # arguments will be taken from inputs\n    kwargs = {}\n    for i in self.inputs.values():\n        if i.dataType is not DataTypes.Exec:\n            kwargs[i.name] = i.getData()\n    for ref in refs:\n        if ref.dataType is not DataTypes.Exec:\n            kwargs[ref.name] = ref.setData\n    result = foo(**kwargs)\n    if returnType is not None:\n        self.setData('out', result)\n    if nodeType == NodeTypes.Callable:\n        outExec.call()\n", 
+        "type": "pyprint", 
+        "uuid": "9113fe58-34b7-4080-9cab-1ef968e7c731"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "minV", 
+            "deletable": false, 
+            "dataType": 1, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": -1.0, 
+            "uuid": "41e9a489-5ec5-423d-ad0b-cd0130906ca2"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "maxV", 
+            "deletable": false, 
+            "dataType": 1, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": 1.0, 
+            "uuid": "ad8f873c-759d-460b-889d-85f73fb9845d"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "pythonNode"
+        }, 
+        "name": "pythonNode1", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "Rand", 
+            "deletable": false, 
+            "dataType": 1, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": 0.7695424562447095, 
+            "uuid": "b512fc02-86de-4993-bf39-eb4419b5390c"
+          }
+        ], 
+        "y": -246.42724880960188, 
+        "x": -1142.864030085624, 
+        "computeCode": "import random\nself.Rand.setData(random.uniform(self.minV.getData(),self.maxV.getData()))\n", 
+        "type": "pythonNode", 
+        "uuid": "4537b421-e9cf-4ab3-9b77-8190bac12bb4"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "a", 
+            "deletable": false, 
+            "dataType": 1, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": 0.07695424562447095, 
+            "uuid": "b26c70f2-8cc6-47b6-ae38-a2f1bc230967"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "b", 
+            "deletable": false, 
+            "dataType": 1, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": 0.015378455979276473, 
+            "uuid": "2f55c85d-84c1-41c4-8d39-cfbcd55480ad"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "c", 
+            "deletable": false, 
+            "dataType": 1, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": -0.009738345236009627, 
+            "uuid": "e0466e93-d6e1-4c89-931c-84ece486aa6b"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "v3Create"
+        }, 
+        "name": "v3Create", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "out", 
+            "deletable": false, 
+            "dataType": 8, 
+            "editable": false, 
+            "curr_dataType": 8, 
+            "bLabelHidden": false, 
+            "value": [
+              0.07695424562447095, 
+              0.015378455979276473, 
+              -0.009738345236009627
+            ], 
+            "uuid": "34d8de1f-1759-40f3-8b89-e0328aeba152"
+          }
+        ], 
+        "y": -181.5453554009376, 
+        "x": -895.137788486272, 
+        "computeCode": "def compute(self):\n    # arguments will be taken from inputs\n    kwargs = {}\n    for i in self.inputs.values():\n        if i.dataType is not DataTypes.Exec:\n            kwargs[i.name] = i.getData()\n    for ref in refs:\n        if ref.dataType is not DataTypes.Exec:\n            kwargs[ref.name] = ref.setData\n    result = foo(**kwargs)\n    if returnType is not None:\n        self.setData('out', result)\n    if nodeType == NodeTypes.Callable:\n        outExec.call()\n", 
+        "type": "v3Create", 
+        "uuid": "1dbe0378-d421-4f95-90f8-688559b0558a"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "a", 
+            "deletable": false, 
+            "dataType": 0, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": 0.15378455979276473, 
+            "uuid": "abbfa101-60ca-4487-8e0d-522aa964698e"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "b", 
+            "deletable": false, 
+            "dataType": 0, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": 0.1, 
+            "uuid": "1a12cb03-5ad2-47ca-b36d-80cf2902b669"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "multiply"
+        }, 
+        "name": "multiply", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "out", 
+            "deletable": false, 
+            "dataType": 0, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": 0.015378455979276473, 
+            "uuid": "62f826ba-0ce1-4558-ade3-643ff96dd9b1"
+          }
+        ], 
+        "y": -161.85392181342814, 
+        "x": -1033.5915305581243, 
+        "computeCode": "def compute(self):\n    # arguments will be taken from inputs\n    kwargs = {}\n    for i in self.inputs.values():\n        if i.dataType is not DataTypes.Exec:\n            kwargs[i.name] = i.getData()\n    for ref in refs:\n        if ref.dataType is not DataTypes.Exec:\n            kwargs[ref.name] = ref.setData\n    result = foo(**kwargs)\n    if returnType is not None:\n        self.setData('out', result)\n    if nodeType == NodeTypes.Callable:\n        outExec.call()\n", 
+        "type": "multiply", 
+        "uuid": "376143ea-9556-4013-af7f-e11e85f63f01"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "a", 
+            "deletable": false, 
+            "dataType": 0, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": -0.09738345236009627, 
+            "uuid": "96884fde-f8b3-48b5-a839-abd4c9be9d60"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "b", 
+            "deletable": false, 
+            "dataType": 0, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": 0.1, 
+            "uuid": "cfee50c5-9ffa-471d-b728-07169548526d"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "multiply"
+        }, 
+        "name": "multiply1", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "out", 
+            "deletable": false, 
+            "dataType": 0, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": -0.009738345236009627, 
+            "uuid": "28110814-39f0-4e21-a4a3-34dec22c6246"
+          }
+        ], 
+        "y": -67.01329411813458, 
+        "x": -1025.0665303158505, 
+        "computeCode": "def compute(self):\n    # arguments will be taken from inputs\n    kwargs = {}\n    for i in self.inputs.values():\n        if i.dataType is not DataTypes.Exec:\n            kwargs[i.name] = i.getData()\n    for ref in refs:\n        if ref.dataType is not DataTypes.Exec:\n            kwargs[ref.name] = ref.setData\n    result = foo(**kwargs)\n    if returnType is not None:\n        self.setData('out', result)\n    if nodeType == NodeTypes.Callable:\n        outExec.call()\n", 
+        "type": "multiply", 
+        "uuid": "b7f8a387-b12a-4dc0-93c2-1b6a0f4e10fd"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": true, 
+            "name": "dagPath", 
+            "deletable": false, 
+            "dataType": 3, 
+            "editable": false, 
+            "curr_dataType": 3, 
+            "bLabelHidden": false, 
+            "value": "", 
+            "uuid": "64c52e3a-5a9c-4690-a0bf-201f0d3ac364"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "GetPointPositions"
+        }, 
+        "name": "GetPointPositions", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": true, 
+            "name": "PointPosition", 
+            "deletable": false, 
+            "dataType": 5, 
+            "editable": false, 
+            "curr_dataType": 5, 
+            "bLabelHidden": false, 
+            "value": [], 
+            "uuid": "735546f4-cf34-45c1-aba5-1fa1c8460d42"
+          }
+        ], 
+        "y": -130.7531324713172, 
+        "x": -719.8515924723725, 
+        "computeCode": "import maya.OpenMaya as OpenMaya\n\nselList=OpenMaya.MSelectionList()\nselList.add(self.dagPath.getData())\ndagPath = OpenMaya.MDagPath()\nselList.getDagPath( 0, dagPath )\n\n# put each point to a list\npointList = []\n\ninmeshVertexItr = OpenMaya.MItMeshVertex( dagPath )\ni = 0\nwhile not inmeshVertexItr.isDone():\n\tpos = inmeshVertexItr.position(OpenMaya.MSpace.kWorld)\n\tpointList.append([pos.x,pos.y,pos.z])\n\tinmeshVertexItr.next()\n\ti+=1\n\nself.PointPosition.setData(pointList)", 
+        "type": "pythonNode", 
+        "uuid": "54a42e7a-55c6-4655-94f6-8d0034902055"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "A", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": false, 
+            "value": null, 
+            "uuid": "7be4ab11-9927-4288-aae7-5db6e100dae9"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "dagPath", 
+            "deletable": false, 
+            "dataType": 3, 
+            "editable": false, 
+            "curr_dataType": 3, 
+            "bLabelHidden": false, 
+            "value": "pCube1", 
+            "uuid": "f2d4b2d1-ac6f-4edb-97e7-3489d73151e8"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": true, 
+            "name": "pointIndex", 
+            "deletable": false, 
+            "dataType": 2, 
+            "editable": false, 
+            "curr_dataType": 2, 
+            "bLabelHidden": false, 
+            "value": 5401, 
+            "uuid": "2d663bd3-1965-4196-a810-de8c3f95dddf"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "GetPointPosition"
+        }, 
+        "name": "GetPointPosition", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "pos_1", 
+            "deletable": false, 
+            "dataType": 8, 
+            "editable": false, 
+            "curr_dataType": 8, 
+            "bLabelHidden": false, 
+            "value": [
+              -5.0, 
+              4.666666507720947, 
+              4.666666507720947
+            ], 
+            "uuid": "1300526d-d19e-4020-b2b9-2ce1108cf67e"
+          }
+        ], 
+        "y": -503.63369511598415, 
+        "x": -926.1655589617532, 
+        "computeCode": "import maya.OpenMaya as OpenMaya\n\nselList=OpenMaya.MSelectionList()\nselList.add(self.dagPath.getData())\ndagPath = OpenMaya.MDagPath()\nselList.getDagPath( 0, dagPath )\n\n# put each point to a list\n\n\ninMeshMPointArray = OpenMaya.MPointArray()\n# create function set and get points in world space\ncurrentInMeshMFnMesh = OpenMaya.MFnMesh(dagPath)\ncurrentInMeshMFnMesh.getPoints(inMeshMPointArray, OpenMaya.MSpace.kWorld)\n\n#print point\nself.pos_1.setData([inMeshMPointArray[self.pointIndex.getData()][0], inMeshMPointArray[self.pointIndex.getData()][1], inMeshMPointArray[self.pointIndex.getData()][2]])\nself.pointIndex.setDirty()\n", 
+        "type": "pythonNode", 
+        "uuid": "b48098b2-e9df-430d-97c7-6d597038f610"
+      }, 
+      {
+        "inputs": [], 
+        "meta": {
+          "var": {}, 
+          "label": "clock"
+        }, 
+        "name": "clock", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": true, 
+            "name": "out", 
+            "deletable": false, 
+            "dataType": 1, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": 271.37929008321686, 
+            "uuid": "cbee7bb1-17e9-46f7-9a41-80f56be21ea1"
+          }
+        ], 
+        "y": -98.41318637290094, 
+        "x": -1407.9641778253454, 
+        "computeCode": "def compute(self):\n    # arguments will be taken from inputs\n    kwargs = {}\n    for i in self.inputs.values():\n        if i.dataType is not DataTypes.Exec:\n            kwargs[i.name] = i.getData()\n    for ref in refs:\n        if ref.dataType is not DataTypes.Exec:\n            kwargs[ref.name] = ref.setData\n    result = foo(**kwargs)\n    if returnType is not None:\n        self.setData('out', result)\n    if nodeType == NodeTypes.Callable:\n        outExec.call()\n", 
+        "type": "clock", 
+        "uuid": "de302572-cf8d-4dce-8794-f8f5762ab3f9"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "s", 
+            "deletable": false, 
+            "dataType": 3, 
+            "editable": false, 
+            "curr_dataType": 3, 
+            "bLabelHidden": false, 
+            "value": "pCube1", 
+            "uuid": "3c2c8d56-c250-4352-a0f1-aed817411c42"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "makeString"
+        }, 
+        "name": "makeString", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "out", 
+            "deletable": false, 
+            "dataType": 3, 
+            "editable": false, 
+            "curr_dataType": 3, 
+            "bLabelHidden": false, 
+            "value": "pCube1", 
+            "uuid": "6a540293-0684-4118-9dc4-b0c1d4e3aadf"
+          }
+        ], 
+        "y": -496.4432605223806, 
+        "x": -1396.7955064171952, 
+        "computeCode": "def compute(self):\n    # arguments will be taken from inputs\n    kwargs = {}\n    for i in self.inputs.values():\n        if i.dataType is not DataTypes.Exec:\n            kwargs[i.name] = i.getData()\n    for ref in refs:\n        if ref.dataType is not DataTypes.Exec:\n            kwargs[ref.name] = ref.setData\n    result = foo(**kwargs)\n    if returnType is not None:\n        self.setData('out', result)\n    if nodeType == NodeTypes.Callable:\n        outExec.call()\n", 
+        "type": "makeString", 
+        "uuid": "1d8f6842-c782-4a67-a8b6-11b93775663b"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "a", 
+            "deletable": false, 
+            "dataType": 0, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": 0.7695424562447095, 
+            "uuid": "74cd4bf2-cad5-435f-a6b4-5f958db70012"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "b", 
+            "deletable": false, 
+            "dataType": 0, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": 0.1, 
+            "uuid": "01bfd7f3-0f47-4404-ad39-1f94d8396615"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "multiply"
+        }, 
+        "name": "multiply2", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "out", 
+            "deletable": false, 
+            "dataType": 0, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": 0.07695424562447095, 
+            "uuid": "cc49855a-899c-4308-860a-cac3131079f8"
+          }
+        ], 
+        "y": -247.5250607918176, 
+        "x": -1030.1138977635028, 
+        "computeCode": "def compute(self):\n    # arguments will be taken from inputs\n    kwargs = {}\n    for i in self.inputs.values():\n        if i.dataType is not DataTypes.Exec:\n            kwargs[i.name] = i.getData()\n    for ref in refs:\n        if ref.dataType is not DataTypes.Exec:\n            kwargs[ref.name] = ref.setData\n    result = foo(**kwargs)\n    if returnType is not None:\n        self.setData('out', result)\n    if nodeType == NodeTypes.Callable:\n        outExec.call()\n", 
+        "type": "multiply", 
+        "uuid": "a31d76f5-ec6f-45a2-96d3-04ac602db675"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "inExec", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": true, 
+            "value": null, 
+            "uuid": "071a1708-2c63-4d88-a0c4-e8c7a93a002a"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "sequence"
+        }, 
+        "name": "sequence", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "0", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": false, 
+            "value": null, 
+            "uuid": "56badb0a-1c83-4bfc-901b-a3f4a3fb5b54"
+          }, 
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "1", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": false, 
+            "value": null, 
+            "uuid": "9b17bfd8-5c98-42f6-8916-c4920fbdd78f"
+          }
+        ], 
+        "y": -596.9752305520044, 
+        "x": -1003.1491468639191, 
+        "computeCode": "def compute(self):\n    for out in self.outputs.values():\n        out.call()\n", 
+        "type": "sequence", 
+        "uuid": "b003a878-c7cc-4b14-ad8a-04300e7fa505"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "Doit", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": false, 
+            "value": null, 
+            "uuid": "192f2d8c-a88e-494e-a818-3c9228552bf9"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": true, 
+            "name": "dagPath", 
+            "deletable": false, 
+            "dataType": 3, 
+            "editable": false, 
+            "curr_dataType": 3, 
+            "bLabelHidden": false, 
+            "value": "pCube2", 
+            "uuid": "94a777e1-310b-4a18-9c1d-8fa58c1e05ba"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "pointIndex", 
+            "deletable": false, 
+            "dataType": 2, 
+            "editable": false, 
+            "curr_dataType": 2, 
+            "bLabelHidden": false, 
+            "value": 5401, 
+            "uuid": "f0768bcc-def8-4e47-a160-c1ccd6bd3dd4"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "pos_1", 
+            "deletable": false, 
+            "dataType": 8, 
+            "editable": false, 
+            "curr_dataType": 8, 
+            "bLabelHidden": false, 
+            "value": [
+              -4.923045754375529, 
+              4.682044963700224, 
+              4.656928162484937
+            ], 
+            "uuid": "cdf50a03-e1a4-457d-9e61-f08f7a217607"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "SetPointPosition"
+        }, 
+        "name": "SetPointPosition", 
+        "outputs": [], 
+        "y": -415.33277187270403, 
+        "x": -537.9424476333666, 
+        "computeCode": "import maya.OpenMaya as OpenMaya\n\nselList=OpenMaya.MSelectionList()\nselList.add(self.dagPath.getData())\ndagPath = OpenMaya.MDagPath()\nselList.getDagPath( 0, dagPath )\n\n# put each point to a list\n\n\ninMeshMPointArray = OpenMaya.MPointArray()\n# create function set and get points in world space\nmesh = OpenMaya.MFnMesh(dagPath)\npoint = OpenMaya.MPoint(self.pos_1.getData().x,self.pos_1.getData().y,self.pos_1.getData().z)\nmesh.setPoint(self.pointIndex.getData(),point, OpenMaya.MSpace.kWorld)\n\n", 
+        "type": "pythonNode", 
+        "uuid": "0dd08bb3-9fed-4bdf-8696-aa8d2000bd2b"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "inExec", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": true, 
+            "value": null, 
+            "uuid": "4b042b2c-7fed-4d2b-94e6-368757656169"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": true, 
+            "name": "Start", 
+            "deletable": false, 
+            "dataType": 2, 
+            "editable": false, 
+            "curr_dataType": 2, 
+            "bLabelHidden": false, 
+            "value": 0, 
+            "uuid": "d2a292d7-ef08-4445-826c-77a1a4d18b39"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "Stop", 
+            "deletable": false, 
+            "dataType": 2, 
+            "editable": false, 
+            "curr_dataType": 2, 
+            "bLabelHidden": false, 
+            "value": 5402, 
+            "uuid": "5fb35f68-5e45-4a02-a4ad-a06323cbb500"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "Step", 
+            "deletable": false, 
+            "dataType": 2, 
+            "editable": false, 
+            "curr_dataType": 2, 
+            "bLabelHidden": false, 
+            "value": 1, 
+            "uuid": "42290cb1-2248-407c-845a-db7d028b17ca"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "forLoop"
+        }, 
+        "name": "forLoop", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "LoopBody", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": false, 
+            "value": null, 
+            "uuid": "81e1a8c7-9dc9-4868-83e3-88abc31e3c92"
+          }, 
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "Index", 
+            "deletable": false, 
+            "dataType": 2, 
+            "editable": false, 
+            "curr_dataType": 2, 
+            "bLabelHidden": false, 
+            "value": 5401, 
+            "uuid": "61580a79-c337-47a3-b132-023fb15e4c8a"
+          }, 
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "Completed", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": false, 
+            "value": null, 
+            "uuid": "da70cbd5-25c7-4e49-98d5-ed9cce8de53d"
+          }
+        ], 
+        "y": -409.44596380137517, 
+        "x": -1145.5078405609122, 
+        "computeCode": "def compute(self):\n    indexFrom = self.firstIndex.getData()\n    indexTo = self.lastIndex.getData()\n    step = self.step.getData()\n    if step == 0:\n        self.completed.call()\n    else:\n        for i in range(indexFrom, indexTo, step):\n            self.index.setData(i)\n            self.loopBody.call()\n        self.completed.call()\n", 
+        "type": "forLoop", 
+        "uuid": "8b217852-d4c8-4057-88ef-67f4a431d82c"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "dagPath", 
+            "deletable": false, 
+            "dataType": 3, 
+            "editable": false, 
+            "curr_dataType": 3, 
+            "bLabelHidden": false, 
+            "value": "pCube1", 
+            "uuid": "e7296781-d195-4644-bd43-21850051db7a"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "GetNumVertex"
+        }, 
+        "name": "GetNumVertex", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "NbPoints", 
+            "deletable": false, 
+            "dataType": 2, 
+            "editable": false, 
+            "curr_dataType": 2, 
+            "bLabelHidden": false, 
+            "value": 5402, 
+            "uuid": "1b9d37e6-e6eb-4ad0-b0a7-8e775bd5e618"
+          }
+        ], 
+        "y": -367.750457307469, 
+        "x": -1288.983176910586, 
+        "computeCode": "import maya.OpenMaya as OpenMaya\n\nselList=OpenMaya.MSelectionList()\nselList.add(self.dagPath.getData())\ndagPath = OpenMaya.MDagPath()\nselList.getDagPath( 0, dagPath )\n\n# put each point to a list\n\nmesh = OpenMaya.MFnMesh(dagPath)\n\n\nself.NbPoints.setData(mesh.numVertices())", 
+        "type": "pythonNode", 
+        "uuid": "92d42802-020d-4e5a-ba55-fa3160e08146"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "minV", 
+            "deletable": false, 
+            "dataType": 1, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": -1.0, 
+            "uuid": "aeebaf8f-7acc-4c5e-96f9-ab614205d4ab"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "maxV", 
+            "deletable": false, 
+            "dataType": 1, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": 1.0, 
+            "uuid": "7e9922b6-aa2a-4f47-b62b-07276b036041"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "pythonNode"
+        }, 
+        "name": "pythonNode11", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "Rand", 
+            "deletable": false, 
+            "dataType": 1, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": -0.09738345236009627, 
+            "uuid": "11c3994e-4655-43bf-9c1e-808ed1c669bc"
+          }
+        ], 
+        "y": -61.0914666072444, 
+        "x": -1124.550619934117, 
+        "computeCode": "import random\nself.Rand.setData(random.uniform(self.minV.getData(),self.maxV.getData()))\n", 
+        "type": "pythonNode", 
+        "uuid": "c3ac8c08-bc8e-41a3-9adb-ee59269871d2"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "a", 
+            "deletable": false, 
+            "dataType": 0, 
+            "editable": false, 
+            "curr_dataType": 8, 
+            "bLabelHidden": false, 
+            "value": [
+              -5.0, 
+              4.666666507720947, 
+              4.666666507720947
+            ], 
+            "uuid": "3047d587-cb56-4e73-9a74-3f6728852f1a"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "b", 
+            "deletable": false, 
+            "dataType": 0, 
+            "editable": false, 
+            "curr_dataType": 8, 
+            "bLabelHidden": false, 
+            "value": [
+              0.07695424562447095, 
+              0.015378455979276473, 
+              -0.009738345236009627
+            ], 
+            "uuid": "f9d5e950-5ca9-47ce-8211-ebb71155fd75"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "add"
+        }, 
+        "name": "add", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "out", 
+            "deletable": false, 
+            "dataType": 0, 
+            "editable": false, 
+            "curr_dataType": 8, 
+            "bLabelHidden": false, 
+            "value": [
+              -4.923045754375529, 
+              4.682044963700224, 
+              4.656928162484937
+            ], 
+            "uuid": "443f72f4-8fde-431e-b0e4-edfe62fec62b"
+          }
+        ], 
+        "y": -325.52024993509616, 
+        "x": -702.8523318510657, 
+        "computeCode": "def compute(self):\n    # arguments will be taken from inputs\n    kwargs = {}\n    for i in self.inputs.values():\n        if i.dataType is not DataTypes.Exec:\n            kwargs[i.name] = i.getData()\n    for ref in refs:\n        if ref.dataType is not DataTypes.Exec:\n            kwargs[ref.name] = ref.setData\n    result = foo(**kwargs)\n    if returnType is not None:\n        self.setData('out', result)\n    if nodeType == NodeTypes.Callable:\n        outExec.call()\n", 
+        "type": "add", 
+        "uuid": "f7a0c56d-3b13-41c5-baad-bcf4f0634538"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "f", 
+            "deletable": false, 
+            "dataType": 1, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": 0.1, 
+            "uuid": "08f63846-a2a4-4ee8-8222-89f89e67151f"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "makeFloat"
+        }, 
+        "name": "makeFloat", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "out", 
+            "deletable": false, 
+            "dataType": 1, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": 0.1, 
+            "uuid": "59667ebd-8c87-4237-9b19-4007343c653c"
+          }
+        ], 
+        "y": -136.15020971309696, 
+        "x": -1248.6509115846811, 
+        "computeCode": "def compute(self):\n    # arguments will be taken from inputs\n    kwargs = {}\n    for i in self.inputs.values():\n        if i.dataType is not DataTypes.Exec:\n            kwargs[i.name] = i.getData()\n    for ref in refs:\n        if ref.dataType is not DataTypes.Exec:\n            kwargs[ref.name] = ref.setData\n    result = foo(**kwargs)\n    if returnType is not None:\n        self.setData('out', result)\n    if nodeType == NodeTypes.Callable:\n        outExec.call()\n", 
+        "type": "makeFloat", 
+        "uuid": "32f237d8-8093-4c4e-9959-262f4d4be5ed"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "input", 
+            "deletable": false, 
+            "dataType": 0, 
+            "editable": false, 
+            "curr_dataType": 8, 
+            "bLabelHidden": false, 
+            "value": [
+              -5.0, 
+              4.666666507720947, 
+              4.666666507720947
+            ], 
+            "uuid": "3dd163d9-34cd-489c-83bc-72cac6819989"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "passtrhough"
+        }, 
+        "name": "passtrhough", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "out", 
+            "deletable": false, 
+            "dataType": 0, 
+            "editable": false, 
+            "curr_dataType": 8, 
+            "bLabelHidden": false, 
+            "value": [
+              -5.0, 
+              4.666666507720947, 
+              4.666666507720947
+            ], 
+            "uuid": "dd63247e-737a-4e21-bfde-15f655842bf1"
+          }
+        ], 
+        "y": -447.8573341858499, 
+        "x": -779.7337471106802, 
+        "computeCode": "def compute(self):\n    # arguments will be taken from inputs\n    kwargs = {}\n    for i in self.inputs.values():\n        if i.dataType is not DataTypes.Exec:\n            kwargs[i.name] = i.getData()\n    for ref in refs:\n        if ref.dataType is not DataTypes.Exec:\n            kwargs[ref.name] = ref.setData\n    result = foo(**kwargs)\n    if returnType is not None:\n        self.setData('out', result)\n    if nodeType == NodeTypes.Callable:\n        outExec.call()\n", 
+        "type": "passtrhough", 
+        "uuid": "575aba9b-5531-4502-8bb1-e2701d90d9df"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": true, 
+            "name": "rad", 
+            "deletable": false, 
+            "dataType": 1, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": 271.37929008321686, 
+            "uuid": "760c7f68-ff5f-4d7c-979b-17d2471d1e3c"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "sin"
+        }, 
+        "name": "sin", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": true, 
+            "name": "out", 
+            "deletable": false, 
+            "dataType": 1, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": 0.9328779220819403, 
+            "uuid": "5d2f41db-862b-4f3c-a4f5-2341b1d66a41"
+          }
+        ], 
+        "y": -98.11307578813721, 
+        "x": -1345.257930359643, 
+        "computeCode": "def compute(self):\n    # arguments will be taken from inputs\n    kwargs = {}\n    for i in self.inputs.values():\n        if i.dataType is not DataTypes.Exec:\n            kwargs[i.name] = i.getData()\n    for ref in refs:\n        if ref.dataType is not DataTypes.Exec:\n            kwargs[ref.name] = ref.setData\n    result = foo(**kwargs)\n    if returnType is not None:\n        self.setData('out', result)\n    if nodeType == NodeTypes.Callable:\n        outExec.call()\n", 
+        "type": "sin", 
+        "uuid": "971e5d68-0b55-47c5-81de-da0dfa479347"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "minV", 
+            "deletable": false, 
+            "dataType": 1, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": -1.0, 
+            "uuid": "4859dbc5-54ef-4113-b42b-82416c373bd8"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "maxV", 
+            "deletable": false, 
+            "dataType": 1, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": 1.0, 
+            "uuid": "dc58d4b1-32c9-4fd6-b74e-0b7bfd0bbfd0"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "pythonNode"
+        }, 
+        "name": "pythonNode", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "Rand", 
+            "deletable": false, 
+            "dataType": 1, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": 0.15378455979276473, 
+            "uuid": "4b31d859-54e0-4ab5-95fa-f5fa2b6af61c"
+          }
+        ], 
+        "y": -155.9320943025379, 
+        "x": -1133.075620176391, 
+        "computeCode": "import random\nself.Rand.setData(random.uniform(self.minV.getData(),self.maxV.getData()))\n", 
+        "type": "pythonNode", 
+        "uuid": "cdbd8d5f-5d36-4e6a-9722-37b2a7cf46fa"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": true, 
+            "name": "entity", 
+            "deletable": false, 
+            "dataType": 0, 
+            "editable": false, 
+            "curr_dataType": 3, 
+            "bLabelHidden": false, 
+            "value": "pCube2", 
+            "uuid": "da2050fd-c874-4871-b27c-e7c76d61ca64"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "inExec", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": true, 
+            "value": null, 
+            "uuid": "948f9be8-4e4c-4a61-a5c0-ecdfdfc44ef9"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "pyprint"
+        }, 
+        "name": "pyprint1", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "outExec", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": true, 
+            "value": null, 
+            "uuid": "1ea4a3df-e94c-46d7-8d9f-f8f617f91f1f"
+          }
+        ], 
+        "y": -661.0697450278781, 
+        "x": -554.0479029134978, 
+        "computeCode": "def compute(self):\n    # arguments will be taken from inputs\n    kwargs = {}\n    for i in self.inputs.values():\n        if i.dataType is not DataTypes.Exec:\n            kwargs[i.name] = i.getData()\n    for ref in refs:\n        if ref.dataType is not DataTypes.Exec:\n            kwargs[ref.name] = ref.setData\n    result = foo(**kwargs)\n    if returnType is not None:\n        self.setData('out', result)\n    if nodeType == NodeTypes.Callable:\n        outExec.call()\n", 
+        "type": "pyprint", 
+        "uuid": "0598c5b1-18c9-40f6-93d8-7f0ef65a15c2"
+      }, 
+      {
+        "inputs": [], 
+        "meta": {
+          "var": {}, 
+          "label": ""
+        }, 
+        "name": "__scene_inputs__", 
+        "outputs": [], 
+        "y": -756.5824398261035, 
+        "x": -1506.1375943675894, 
+        "computeCode": "def compute(self):\n    '''\n    node calculations here\n    '''\n    # getting data from inputs\n    # do stuff\n    # write data to outputs\n    return\n", 
+        "type": "scene_inputs", 
+        "uuid": "2ffc869d-235c-430c-b3b1-a7ee579580e6"
+      }
+    ], 
+    "edges": [
+      {
+        "sourceName": "multiply1.out", 
+        "sourceUUID": "28110814-39f0-4e21-a4a3-34dec22c6246", 
+        "destinationName": "v3Create.c", 
+        "destinationUUID": "e0466e93-d6e1-4c89-931c-84ece486aa6b", 
+        "uuid": "0bc3803d-ab3e-496d-9c00-ec92670921c7"
+      }, 
+      {
+        "sourceName": "makeString1.out", 
+        "sourceUUID": "e0002583-a428-46cd-ba2c-f8c9ffc0ddde", 
+        "destinationName": "SetPointPosition.dagPath", 
+        "destinationUUID": "94a777e1-310b-4a18-9c1d-8fa58c1e05ba", 
+        "uuid": "4a3c8cf1-80b6-4b1a-b450-9e6eeaa77a0e"
+      }, 
+      {
+        "sourceName": "pythonNode11.Rand", 
+        "sourceUUID": "11c3994e-4655-43bf-9c1e-808ed1c669bc", 
+        "destinationName": "multiply1.a", 
+        "destinationUUID": "96884fde-f8b3-48b5-a839-abd4c9be9d60", 
+        "uuid": "5cee10d4-e231-456f-ad12-8543b3027390"
+      }, 
+      {
+        "sourceName": "makeFloat.out", 
+        "sourceUUID": "59667ebd-8c87-4237-9b19-4007343c653c", 
+        "destinationName": "multiply2.b", 
+        "destinationUUID": "01bfd7f3-0f47-4404-ad39-1f94d8396615", 
+        "uuid": "f9a32b28-7d13-4c70-a01a-6e82c1e7a83d"
+      }, 
+      {
+        "sourceName": "GetPointPosition.pos_1", 
+        "sourceUUID": "1300526d-d19e-4020-b2b9-2ce1108cf67e", 
+        "destinationName": "passtrhough.input", 
+        "destinationUUID": "3dd163d9-34cd-489c-83bc-72cac6819989", 
+        "uuid": "731b1544-1d0d-405e-b4f2-0ce98162140c"
+      }, 
+      {
+        "sourceName": "makeFloat.out", 
+        "sourceUUID": "59667ebd-8c87-4237-9b19-4007343c653c", 
+        "destinationName": "multiply1.b", 
+        "destinationUUID": "cfee50c5-9ffa-471d-b728-07169548526d", 
+        "uuid": "b3a815cc-dc99-4363-9437-6d6953283e85"
+      }, 
+      {
+        "sourceName": "multiply2.out", 
+        "sourceUUID": "cc49855a-899c-4308-860a-cac3131079f8", 
+        "destinationName": "v3Create.a", 
+        "destinationUUID": "b26c70f2-8cc6-47b6-ae38-a2f1bc230967", 
+        "uuid": "f2945536-c6ad-4790-97e8-350310c62957"
+      }, 
+      {
+        "sourceName": "multiply.out", 
+        "sourceUUID": "62f826ba-0ce1-4558-ade3-643ff96dd9b1", 
+        "destinationName": "v3Create.b", 
+        "destinationUUID": "2f55c85d-84c1-41c4-8d39-cfbcd55480ad", 
+        "uuid": "65853681-5c2a-4ae6-ade3-429a839d6d23"
+      }, 
+      {
+        "sourceName": "forLoop.Index", 
+        "sourceUUID": "61580a79-c337-47a3-b132-023fb15e4c8a", 
+        "destinationName": "SetPointPosition.pointIndex", 
+        "destinationUUID": "f0768bcc-def8-4e47-a160-c1ccd6bd3dd4", 
+        "uuid": "0d6f0412-53cf-4091-900a-02f3d96c4111"
+      }, 
+      {
+        "sourceName": "add.out", 
+        "sourceUUID": "443f72f4-8fde-431e-b0e4-edfe62fec62b", 
+        "destinationName": "SetPointPosition.pos_1", 
+        "destinationUUID": "cdf50a03-e1a4-457d-9e61-f08f7a217607", 
+        "uuid": "88dbc208-019b-4d4e-964c-39120ab169c3"
+      }, 
+      {
+        "sourceName": "makeString1.out", 
+        "sourceUUID": "e0002583-a428-46cd-ba2c-f8c9ffc0ddde", 
+        "destinationName": "pyprint1.entity", 
+        "destinationUUID": "da2050fd-c874-4871-b27c-e7c76d61ca64", 
+        "uuid": "49ff36f2-3aad-4f89-8834-c65d74895d54"
+      }, 
+      {
+        "sourceName": "sequence.0", 
+        "sourceUUID": "56badb0a-1c83-4bfc-901b-a3f4a3fb5b54", 
+        "destinationName": "GetPointPosition.A", 
+        "destinationUUID": "7be4ab11-9927-4288-aae7-5db6e100dae9", 
+        "uuid": "fe6e1bd7-2368-43ba-8361-7fc5e4b16356"
+      }, 
+      {
+        "sourceName": "pythonNode.Rand", 
+        "sourceUUID": "4b31d859-54e0-4ab5-95fa-f5fa2b6af61c", 
+        "destinationName": "multiply.a", 
+        "destinationUUID": "abbfa101-60ca-4487-8e0d-522aa964698e", 
+        "uuid": "2bebb8e8-d255-41cb-8bfc-04f37500ce10"
+      }, 
+      {
+        "sourceName": "forLoop.LoopBody", 
+        "sourceUUID": "81e1a8c7-9dc9-4868-83e3-88abc31e3c92", 
+        "destinationName": "sequence.inExec", 
+        "destinationUUID": "071a1708-2c63-4d88-a0c4-e8c7a93a002a", 
+        "uuid": "990f3d42-f887-4b03-b999-05f100028702"
+      }, 
+      {
+        "sourceName": "GetNumVertex.NbPoints", 
+        "sourceUUID": "1b9d37e6-e6eb-4ad0-b0a7-8e775bd5e618", 
+        "destinationName": "forLoop.Stop", 
+        "destinationUUID": "5fb35f68-5e45-4a02-a4ad-a06323cbb500", 
+        "uuid": "546908de-beab-4d77-a039-0b42609fd122"
+      }, 
+      {
+        "sourceName": "makeFloat.out", 
+        "sourceUUID": "59667ebd-8c87-4237-9b19-4007343c653c", 
+        "destinationName": "multiply.b", 
+        "destinationUUID": "1a12cb03-5ad2-47ca-b36d-80cf2902b669", 
+        "uuid": "de715145-db44-41d5-80fb-693cbae60569"
+      }, 
+      {
+        "sourceName": "v3Create.out", 
+        "sourceUUID": "34d8de1f-1759-40f3-8b89-e0328aeba152", 
+        "destinationName": "add.b", 
+        "destinationUUID": "f9d5e950-5ca9-47ce-8211-ebb71155fd75", 
+        "uuid": "839c33a6-9132-4b27-8d65-c24853dc9430"
+      }, 
+      {
+        "sourceName": "forLoop.Index", 
+        "sourceUUID": "61580a79-c337-47a3-b132-023fb15e4c8a", 
+        "destinationName": "GetPointPosition.pointIndex", 
+        "destinationUUID": "2d663bd3-1965-4196-a810-de8c3f95dddf", 
+        "uuid": "76e4eb9d-aed0-4d20-9b5a-ec065d4b3282"
+      }, 
+      {
+        "sourceName": "makeString.out", 
+        "sourceUUID": "6a540293-0684-4118-9dc4-b0c1d4e3aadf", 
+        "destinationName": "GetPointPosition.dagPath", 
+        "destinationUUID": "f2d4b2d1-ac6f-4edb-97e7-3489d73151e8", 
+        "uuid": "64164a6a-2840-4a93-a512-d2f7d78c6cac"
+      }, 
+      {
+        "sourceName": "pythonNode1.Rand", 
+        "sourceUUID": "b512fc02-86de-4993-bf39-eb4419b5390c", 
+        "destinationName": "multiply2.a", 
+        "destinationUUID": "74cd4bf2-cad5-435f-a6b4-5f958db70012", 
+        "uuid": "4e424ee3-109e-495e-b871-8dd9ff0f0f37"
+      }, 
+      {
+        "sourceName": "add.out", 
+        "sourceUUID": "443f72f4-8fde-431e-b0e4-edfe62fec62b", 
+        "destinationName": "pyprint.entity", 
+        "destinationUUID": "47f5dc15-5fd4-4cbf-9e31-e86c36e80f97", 
+        "uuid": "7ad7948b-8358-4d82-9c94-0054983c1076"
+      }, 
+      {
+        "sourceName": "makeString.out", 
+        "sourceUUID": "6a540293-0684-4118-9dc4-b0c1d4e3aadf", 
+        "destinationName": "GetNumVertex.dagPath", 
+        "destinationUUID": "e7296781-d195-4644-bd43-21850051db7a", 
+        "uuid": "cca09459-cb8e-42e0-9837-a557bde9574e"
+      }, 
+      {
+        "sourceName": "passtrhough.out", 
+        "sourceUUID": "dd63247e-737a-4e21-bfde-15f655842bf1", 
+        "destinationName": "add.a", 
+        "destinationUUID": "3047d587-cb56-4e73-9a74-3f6728852f1a", 
+        "uuid": "96cda5d7-a99e-4362-b083-0bb0c114ea76"
+      }, 
+      {
+        "sourceName": "sequence.1", 
+        "sourceUUID": "9b17bfd8-5c98-42f6-8916-c4920fbdd78f", 
+        "destinationName": "pyprint.inExec", 
+        "destinationUUID": "9fdf6426-d472-4cd3-a271-b69173af370e", 
+        "uuid": "2cddb4d9-4555-45e5-b420-5d8b4de5ff9c"
+      }, 
+      {
+        "sourceName": "clock.out", 
+        "sourceUUID": "cbee7bb1-17e9-46f7-9a41-80f56be21ea1", 
+        "destinationName": "sin.rad", 
+        "destinationUUID": "760c7f68-ff5f-4d7c-979b-17d2471d1e3c", 
+        "uuid": "c601017e-cf44-4a65-b35c-621e350d4f72"
+      }
+    ], 
+    "variables": []
+  }
+}

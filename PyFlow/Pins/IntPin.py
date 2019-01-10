@@ -15,13 +15,15 @@ class IntPin(PinWidgetBase):
     @staticmethod
     def pinDataTypeHint():
         return DataTypes.Int, 0
-
+    @staticmethod
+    def processData( data):
+        try:
+            return int(data)
+        except:
+            return 0
     def supportedDataTypes(self):
         return (DataTypes.Int, DataTypes.Float)
 
     def setData(self, data):
-        try:
-            self._data = int(data)
-        except:
-            self._data = self.defaultValue()
+        self._data = self.processData(data)
         PinWidgetBase.setData(self, self._data)

@@ -26,7 +26,10 @@ class EnumPin(PinWidgetBase):
     @staticmethod
     def pinDataTypeHint():
         return DataTypes.Enum, ENone
-
+    @staticmethod
+    def processData( data):
+        return data
+        
     def setData(self, data):
         if isinstance(data, self._userStruct) and data != self._userStruct:
             self._data = data

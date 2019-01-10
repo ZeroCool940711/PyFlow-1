@@ -14,6 +14,9 @@ class BoolPin(PinWidgetBase):
     @staticmethod
     def color():
         return Colors.Bool
+    @staticmethod
+    def processData( data):
+        return bool(data)
 
     @staticmethod
     def pinDataTypeHint():
@@ -21,7 +24,7 @@ class BoolPin(PinWidgetBase):
 
     def setData(self, data):
         try:
-            self._data = bool(data)
+            self._data = self.processData(data)
         except:
             self._data = self.defaultValue()
         PinWidgetBase.setData(self, self._data)

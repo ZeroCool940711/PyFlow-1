@@ -8,6 +8,15 @@ class ListPin(PinWidgetBase):
         super(ListPin, self).__init__(name, parent, dataType, direction, **kwargs)
         self.setDefaultValue([])
 
+    def serialize(self):
+        dt = super(PinWidgetBase, self).serialize()
+        if isinstance(self._data, list):
+            datas = []
+            for i in self._data:
+                datas.append(str(i))
+            dt['value']=datas                         
+        return dt
+
     def supportedDataTypes(self):
         return (DataTypes.Array,)
 
@@ -18,10 +27,12 @@ class ListPin(PinWidgetBase):
     @staticmethod
     def pinDataTypeHint():
         return DataTypes.Array, []
-
-    def setData(self, data):
+    @staticmethod
+    def processData( data):
         if isinstance(data, list):
-            self._data = data
+            return data
         else:
-            self._data = self.defaultValue()
+            return []
+    def setData(self, data):
+        self._data = self.processData(data)
         PinWidgetBase.setData(self, self._data)

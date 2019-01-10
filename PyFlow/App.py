@@ -284,6 +284,7 @@ class PyFlow(QMainWindow, GraphEditor_ui.Ui_MainWindow):
         
         #QApp.setStyleSheet( self.styleSheetEditor.getStyleSheet() )
         self.setStyleSheet( self.styleSheetEditor.getStyleSheet() )
+        self.setStyleSheet( self.styleSheetEditor.getStyleSheet() )
 
     def editTheme(self):
         self.styleSheetEditor.show()

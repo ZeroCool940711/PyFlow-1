@@ -26,14 +26,16 @@ class SgPin(PinWidgetBase):
         data = super(SgPin, self).serialize()
         data["value"] = None
         return data
-
-    def setData(self, data):
+    @staticmethod
+    def processData( data):
         try:
             if isinstance(data,Shotgun):
-                self._data = data
+                return data
             else:
-                self._data =  self.defaultValue()
+                return  None
         except:
-            self._data =  self.defaultValue()
+            return  None      
+    def setData(self, data):
+        self._data = self.processData(data)
         PinWidgetBase.setData(self, self._data)
 

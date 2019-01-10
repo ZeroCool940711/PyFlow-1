@@ -25,12 +25,14 @@ class Matrix33Pin(PinWidgetBase):
         m = self.currentData()
         data['value'] = [m.c1.tolist(), m.c2.tolist(), m.c3.tolist()]
         return data
-
-    def setData(self, data):
+    @staticmethod
+    def processData( data):
         if isinstance(data, Matrix33):
-            self._data = data
+            return data
         elif isinstance(data, list) and len(data) == 3:
-            self._data = Matrix33([data[0], data[1], data[2]])
+            return Matrix33([data[0], data[1], data[2]])
         else:
-            self._data = self.defaultValue()
+            return Matrix33()
+    def setData(self, data):
+        self._data = self.processData(data)
         PinWidgetBase.setData(self, self._data)

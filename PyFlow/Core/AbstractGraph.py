@@ -144,7 +144,16 @@ class IPin(IItemBase):
         @sa [DataTypes](@ref AGraphCommon.DataTypes)
         """
         raise NotImplementedError('pinDataTypeHint method of IPin is not implemented')
+    @staticmethod
+    def processData( data):
+        '''
+        Defines how data it processed.
 
+        Returns:
+            procesed data
+        '''        
+        raise NotImplementedError('setData method of IPin is not implemented')
+        return data
     def supportedDataTypes(self):
         '''
         An array of supported data types.
@@ -163,11 +172,13 @@ class IPin(IItemBase):
         '''
         raise NotImplementedError('defaultValue method of IPin is not implemented')
 
+
     def getData(self):
         raise NotImplementedError('getData method of IPin is not implemented')
 
     def setData(self, value):
-        raise NotImplementedError('setData method of IPin is not implemented')
+        self.processData(value)
+        
 
     def call(self):
         raise NotImplementedError('call method of IPin is not implemented')
@@ -241,6 +252,12 @@ class PinBase(IPin):
         self.origDataType = dataType
         ## Defines is this input pin or output
         self.direction = direction
+        self.bLabelHidden = False
+        self.bAnimate = False
+        self._val = 0
+        self.constraint = None
+        self.dynamic = False
+        self._isEditable = False
 
     # ISerializable interface
     def serialize(self):
@@ -251,7 +268,9 @@ class PinBase(IPin):
                 'value': self.currentData(),
                 'uuid': str(self.uid),
                 'bDirty': self.dirty,
-                'deletable':self.deletable
+                'deletable':self.deletable,
+                'bLabelHidden': self.bLabelHidden,
+                'editable': self._isEditable                
                 }
         return data
 
@@ -292,6 +311,9 @@ class PinBase(IPin):
     def defaultValue(self):
         return self._defaultValue
 
+    @staticmethod
+    def processData(data):
+        return data
     ## retrieving the data
     def getData(self):
         # if not connected - return data
@@ -323,6 +345,8 @@ class PinBase(IPin):
     ## Setting the data
     def setData(self, data):
         self.setClean()
+        data = self.processData(data)
+        self._data = data
         if self.direction == PinDirection.Output:
             for i in self.affects:
                 i._data = data

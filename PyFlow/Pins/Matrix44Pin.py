@@ -25,12 +25,14 @@ class Matrix44Pin(PinWidgetBase):
         m = self.currentData()
         data['value'] = [m.c1.tolist(), m.c2.tolist(), m.c3.tolist(), m.c4.tolist()]
         return data
-
-    def setData(self, data):
+    @staticmethod
+    def processData( data):
         if isinstance(data, Matrix44):
-            self._data = data
-        elif isinstance(data, list) and len(data) == 4:
-            self._data = Matrix44([data[0], data[1], data[2], data[3]])
+            return data
+        elif isinstance(data, list) and len(data) == 3:
+            return Matrix44([data[0], data[1], data[2], data[3]])
         else:
-            self._data = self.defaultValue()
+            return Matrix44()
+    def setData(self, data):
+        self._data = self.processData(data)
         PinWidgetBase.setData(self, self._data)

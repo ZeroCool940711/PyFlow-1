@@ -771,7 +771,11 @@ class GraphWidget(QGraphicsView, Graph):
     def save(self, save_as=False):
         if save_as:
             name_filter = "Graph files (*.pyGraph)"
-            pth = QFileDialog.getSaveFileName(filter=name_filter)
+            savepath = QFileDialog.getSaveFileName(filter=name_filter)
+            if type(savepath) in [tuple,list]:
+                pth = savepath[0]
+            else:
+                pth = savepath 
             if not pth == '':
                 self._current_file_name = pth
             else:
@@ -792,9 +796,6 @@ class GraphWidget(QGraphicsView, Graph):
             with open(self._current_file_name, 'w') as f:
                 graphData = self.getGraphSaveData()
                 def to_serializable(val):
-                    return {
-                        "name": None
-                    }
                     return str(val)                
                 json.dump(graphData, f,skipkeys=True,default=to_serializable,indent=2)
 
@@ -841,14 +842,18 @@ class GraphWidget(QGraphicsView, Graph):
 
     def load(self):
         name_filter = "Graph files (*.pyGraph)"
-        fpath = QFileDialog.getOpenFileName(filter=name_filter)
+        savepath = QFileDialog.getOpenFileName(filter=name_filter)
+        if type(savepath) in [tuple,list]:
+            fpath = savepath[0]
+        else:
+            fpath = savepath         
         if not fpath == '':
-            try:
-                with open(fpath, 'r') as f:
-                    data = json.load(f)
-                    self.loadFromData(data,fpath)   
-            except:
-                print "Not Valid %s Graph"%self.name
+            #try:
+            with open(fpath, 'r') as f:
+                data = json.load(f)
+                self.loadFromData(data,fpath)   
+            #except:
+            #    print "Not Valid %s Graph"%self.name
     def loadFromData(self,data,path=""):
         self.new_file()
         # vars
@@ -1102,18 +1107,19 @@ class GraphWidget(QGraphicsView, Graph):
                 fullEdges.append({"full":True,"sourcenode":e.source().parent().name,"sourcePin":e.source().name,"destinationNode":e.destination().parent().name,"destinationPin":e.destination().name})
             elif e.source().parent() not in oldNodes and e.source().dataType != DataTypes.Exec:
                 fullEdges.append({"full":False,"sourcenode":e.source().parent().name,"sourcePin":e.source().name,"destinationNode":e.destination().parent().name,"destinationPin":e.destination().name})
-        ret = {"nodes":nodes,"edges":fullEdges}             
-        QApplication.clipboard().setText(str(ret))
+        ret = {"nodes":nodes,"edges":fullEdges}  
+        n = json.dumps(ret)
+        QApplication.clipboard().setText(n)
 
     def pasteNodes(self,move=True):
         
-        try:
-            nodes = ast.literal_eval(QApplication.clipboard().text())
-            if not nodes.has_key("nodes") or not nodes.has_key("edges"):
-                return
-        except:
-                
+        #try:
+        nodes = json.loads(QApplication.clipboard().text())
+        if not nodes.has_key("nodes") or not nodes.has_key("edges"):
             return
+        #except:
+                
+        #    return
         diff = QtCore.QPointF(self.mapToScene(self.mousePos)) - QtCore.QPointF(nodes["nodes"][0]["x"],nodes["nodes"][0]["y"])
         self.clearSelection()
         newNodes = {}

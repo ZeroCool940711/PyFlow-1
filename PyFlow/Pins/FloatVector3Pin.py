@@ -19,17 +19,19 @@ class FloatVector3Pin(PinWidgetBase):
     @staticmethod
     def pinDataTypeHint():
         return DataTypes.FloatVector3, Vector3()
-
+    @staticmethod
+    def processData( data):
+        if isinstance(data, Vector3):
+            return data
+        elif isinstance(data, list) and len(data) == 3:
+            return Vector3(data)
+        else:
+            return Vector3()
     def serialize(self):
         data = PinWidgetBase.serialize(self)
         data['value'] = self.currentData().xyz.tolist()
         return data
 
     def setData(self, data):
-        if isinstance(data, Vector3):
-            self._data = data
-        elif isinstance(data, list) and len(data) == 3:
-            self._data = Vector3(data)
-        else:
-            self._data = self.defaultValue()
+        self._data = self.processData(data)
         PinWidgetBase.setData(self, self._data)

@@ -26,15 +26,14 @@ class QuatPin(PinWidgetBase):
         data = PinWidgetBase.serialize(self)
         data['value'] = self.currentData().xyzw.tolist()
         return data
-
-    def setData(self, data):
+    @staticmethod
+    def processData( data):
         if isinstance(data, Quaternion):
-            self._data = data
+            return data
         elif isinstance(data, list) and len(data) == 4:
-            # here serialized data will be handled
-            # when node desirializes itself, it creates all pins
-            # and then sets data to them. Here, data will be set fo the first time after deserialization
-            self._data = Quaternion(data)
+            return Quaternion(data)
         else:
-            self._data = self.defaultValue()
+            return Quaternion()        
+    def setData(self, data):
+        self._data = self.processData(data)
         PinWidgetBase.setData(self, self._data)

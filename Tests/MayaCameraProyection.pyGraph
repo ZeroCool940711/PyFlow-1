@@ -1,0 +1,492 @@
+{
+  "root": {
+    "nodes": [
+      {
+        "inputs": [], 
+        "meta": {
+          "var": {}, 
+          "label": ""
+        }, 
+        "name": "__scene_outputs__", 
+        "outputs": [], 
+        "y": -358.29803189296564, 
+        "x": 642.4079250698949, 
+        "computeCode": "def compute(self):\n    '''\n    node calculations here\n    '''\n    # getting data from inputs\n    # do stuff\n    # write data to outputs\n    return\n", 
+        "type": "scene_outputs", 
+        "uuid": "9dbe1254-bb34-41de-be97-fb30ae2c0f9d"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "In", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": true, 
+            "value": null, 
+            "uuid": "83249da4-921c-4389-bc60-95f8bac02b2c"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "Condition", 
+            "deletable": false, 
+            "dataType": 4, 
+            "editable": false, 
+            "curr_dataType": 4, 
+            "bLabelHidden": false, 
+            "value": true, 
+            "uuid": "78919561-910a-4f17-b14e-c29ce3abf1f0"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "branch"
+        }, 
+        "name": "branch", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "True", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": false, 
+            "value": null, 
+            "uuid": "3ac41982-8179-4735-ab58-7f25e6d09a3a"
+          }, 
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "False", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": false, 
+            "value": null, 
+            "uuid": "c27a25cc-d16d-4b44-b653-db7c975f1a94"
+          }
+        ], 
+        "y": -185.33514610514118, 
+        "x": -68.27009429509837, 
+        "computeCode": "def compute(self):\n    data = self.condition.getData()\n    if data:\n        self.trueExec.call()\n    else:\n        self.falseExec.call()\n", 
+        "type": "branch", 
+        "uuid": "4c0d0453-3630-4e63-ab02-4265db9769cb"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "Begin", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": false, 
+            "value": null, 
+            "uuid": "ad76186a-3e24-4eef-ac33-b95fdbead109"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "Stop", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": false, 
+            "value": null, 
+            "uuid": "cea169f1-c2eb-476e-9b5d-892ca0a05f94"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "Reset", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": false, 
+            "value": null, 
+            "uuid": "61f238ac-b8a8-4be1-b2d2-7aa137c47b07"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "Delta(ms)", 
+            "deletable": false, 
+            "dataType": 1, 
+            "editable": false, 
+            "curr_dataType": 1, 
+            "bLabelHidden": false, 
+            "value": 0.1, 
+            "uuid": "5da58751-7125-48e1-ba45-9dcf16741b91"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "timer"
+        }, 
+        "name": "timer", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "OUT", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": false, 
+            "value": null, 
+            "uuid": "763892ba-7bcd-4933-b813-bafb44346a97"
+          }
+        ], 
+        "y": -307.3176752029184, 
+        "x": -200.08179412183352, 
+        "computeCode": "def compute(self):\n    self.out.call()\n", 
+        "type": "timer", 
+        "uuid": "672733a6-d371-4248-8276-9642186d6899"
+      }, 
+      {
+        "inputs": [], 
+        "meta": {
+          "var": {}, 
+          "label": ""
+        }, 
+        "name": "__scene_inputs__", 
+        "outputs": [], 
+        "y": -358.29803189296564, 
+        "x": -715.3381518764759, 
+        "computeCode": "def compute(self):\n    '''\n    node calculations here\n    '''\n    # getting data from inputs\n    # do stuff\n    # write data to outputs\n    return\n", 
+        "type": "scene_inputs", 
+        "uuid": "f38cbc70-568f-4237-b0f3-452b7181dd3b"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "pinName", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": false, 
+            "value": null, 
+            "uuid": "86f526a2-0c76-47e7-9e2c-15de26db2d33"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "meshes", 
+            "deletable": false, 
+            "dataType": 5, 
+            "editable": false, 
+            "curr_dataType": 5, 
+            "bLabelHidden": false, 
+            "value": [], 
+            "uuid": "542e08ff-386d-4a0e-9002-664dd5b57f0b"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "pythonNode"
+        }, 
+        "name": "pythonNode", 
+        "outputs": [], 
+        "y": -99.67594765935449, 
+        "x": 256.3966058856937, 
+        "computeCode": "# access pins like this\n\t# self.pinName.getData()\n\t# self.pinName.setData()\n\t# self.getData(name) to get data from input pin by name\n\t# self.setData(name, data) to set data to output pin by name\n\nimport maya.mel as mel\nmelCommand = \"\"\"//screen space functions from 185vfx\nproc matrix screenSpaceGetMatrix(string $attr){\n  float $v[]=`getAttr $attr`;\n  matrix $mat[4][4]=<<$v[0], $v[1], $v[2], $v[3]; \n\t\t\t $v[4], $v[5], $v[6], $v[7];\n\t\t\t $v[8], $v[9], $v[10], $v[11];\n\t\t\t $v[12], $v[13], $v[14], $v[15]>>;\n return $mat;\n}\n\n// Multiply the vector v by the 4x4 matrix m, this is probably\n// already in mel but I cant find it.\nproc vector screenSpaceVecMult(vector $v, matrix $m){\n  matrix $v1[1][4]=<<$v.x, $v.y, $v.z, 1>>;\n  matrix $v2[1][4]=$v1*$m;\n  return <<$v2[0][0], $v2[0][1],  $v2[0][2]>>;\n}\n\nglobal proc mwCamProjectUV()\n// Adapted from weObjScreenToUV\n{\n\n\tstring $sel[] = `ls -sl`;\n\n\t// Get current camera with focus\n\tstring $wpanel = `getPanel -wf`;\n\tstring $wcam = `modelPanel -q -cam $wpanel`;\n\t\n\tprint ($wpanel+\"\");\n\tprint ($wcam+\"\");\n\n\t// Grab a list of selected meshes or group of meshes\n\tstring $meshes[] = `ls -sl -dag -ni -type mesh`;\n\tselect -r $meshes;\n\t// Convert selection to points\n\tPolySelectConvert 3;\n\tstring $verts[] = `ls -sl -fl`;\n\n\t\n\t// For each selected vertex...\n\tfor ($i = 0; $i < `size ($verts)`;$i ++){\n\n\t\t// Grab the vertex world space position\n\t\tfloat $ptPosWs[] = `xform -q -ws -t $verts[$i]`;\n\n\t\t// Convert from world space to camera space (from 185vfx.com)\n\t\tvector $ptVecWs = <<$ptPosWs[0],$ptPosWs[1],$ptPosWs[2]>>;\n\t\tmatrix $cam_mat[4][4] = screenSpaceGetMatrix($wcam + \".worldInverseMatrix\");\n\t\tvector $ptVecCs = screenSpaceVecMult($ptVecWs,$cam_mat);\n\t\t\n\t\t// Convert from camera space to 2D screen space\n\t\tfloat $hfv = `camera -q -hfv $wcam`;\n\t\tfloat $ptx = (($ptVecCs.x/(-$ptVecCs.z))/tand($hfv/2))/2.0+.5;\n\t\tfloat $vfv = `camera -q -vfv $wcam`;\n\t\tfloat $pty = (($ptVecCs.y/(-$ptVecCs.z))/tand($vfv/2))/2.0+.5;\n\t\t\t\n\t\t// Select the vertex, convert selection to UVs and set the UVs.\n\t\tselect $verts[$i];\n\t\tPolySelectConvert 4;\n\t\tpolyEditUV -r 0 -u $ptx -v $pty ;\n\t\t\n\t}\n\t\n\t// Restore the original selection\n\tselect -r $sel;\n\n}\n\nmwCamProjectUV();\n\"\"\"\n\nmel.eval(melCommand)\n", 
+        "type": "pythonNode", 
+        "uuid": "d79c1bfb-c815-47e1-9c93-a1847730b26f"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "dagPath", 
+            "deletable": false, 
+            "dataType": 3, 
+            "editable": false, 
+            "curr_dataType": 3, 
+            "bLabelHidden": false, 
+            "value": "persp", 
+            "uuid": "4f1b6019-bd2a-4146-b2e9-e543dd310744"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "pythonNode"
+        }, 
+        "name": "pythonNode", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "translate_1", 
+            "deletable": false, 
+            "dataType": 8, 
+            "editable": false, 
+            "curr_dataType": 8, 
+            "bLabelHidden": false, 
+            "value": [
+              2.1475048453157624, 
+              -1.0893992682207156, 
+              2.195552135154147
+            ], 
+            "uuid": "db04d450-da8e-42bd-ada3-f94838c9f049"
+          }
+        ], 
+        "y": -83.58518518518518, 
+        "x": -327.6897952747927, 
+        "computeCode": "# access pins like this\n\t# self.pinName.getData()\n\t# self.pinName.setData()\n\t# self.getData(name) to get data from input pin by name\n\t# self.setData(name, data) to set data to output pin by name\nimport maya.cmds as cmds \nx = cmds.getAttr(self.dagPath.getData()+'.translateX')\ny = cmds.getAttr(self.dagPath.getData()+'.translateY')\nz = cmds.getAttr(self.dagPath.getData()+'.translateZ')\nself.translate_1.setData([x,y,z])\n\n", 
+        "type": "pythonNode", 
+        "uuid": "858ae81d-7388-4527-b6b7-505564cf6157"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "in0", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": true, 
+            "value": null, 
+            "uuid": "fac4a40d-bf07-47be-a977-16187093b0cb"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "inp", 
+            "deletable": false, 
+            "dataType": 8, 
+            "editable": false, 
+            "curr_dataType": 8, 
+            "bLabelHidden": false, 
+            "value": [
+              2.1475048453157624, 
+              -1.0893992682207156, 
+              2.195552135154147
+            ], 
+            "uuid": "e5433592-5b59-4623-abb7-63ae13f14d05"
+          }
+        ], 
+        "meta": {
+          "var": {
+            "accessLevel": 0, 
+            "type": 8, 
+            "name": "NewVar", 
+            "value": "[ 2.14750485 -1.08939927  2.19555214]", 
+            "uuid": "f62b05f6-a289-46bc-8a62-96f6d53b9b38"
+          }, 
+          "label": "Set NewVar"
+        }, 
+        "name": "NewVar", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "out0", 
+            "deletable": false, 
+            "dataType": 6, 
+            "editable": false, 
+            "curr_dataType": 6, 
+            "bLabelHidden": true, 
+            "value": null, 
+            "uuid": "83eeb0eb-2504-44c5-a39f-6dfe66f2ec12"
+          }, 
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "out", 
+            "deletable": false, 
+            "dataType": 8, 
+            "editable": false, 
+            "curr_dataType": 8, 
+            "bLabelHidden": false, 
+            "value": [
+              2.1475048453157624, 
+              -1.0893992682207156, 
+              2.195552135154147
+            ], 
+            "uuid": "9e3d0423-e409-4a50-ad04-4356ad8a419d"
+          }
+        ], 
+        "y": -103.06142626642709, 
+        "x": 75.52411315411807, 
+        "computeCode": "def compute(self):\n    val = self.value.getData()\n    self.var.value = val\n    self.outValue.setData(val)\n    self.outExec.call()\n", 
+        "type": "SetVarNode", 
+        "uuid": "9a9b178b-7411-45f6-811d-2b1861b4513c"
+      }, 
+      {
+        "inputs": [
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "a", 
+            "deletable": false, 
+            "dataType": 0, 
+            "editable": false, 
+            "curr_dataType": 8, 
+            "bLabelHidden": false, 
+            "value": [
+              2.1475048453157624, 
+              -1.0893992682207156, 
+              2.195552135154147
+            ], 
+            "uuid": "c95bf8d7-f061-4658-a613-b0f537ab7847"
+          }, 
+          {
+            "direction": 0, 
+            "bDirty": false, 
+            "name": "b", 
+            "deletable": false, 
+            "dataType": 0, 
+            "editable": false, 
+            "curr_dataType": 8, 
+            "bLabelHidden": false, 
+            "value": [
+              2.1475048453157624, 
+              -1.0893992682207156, 
+              2.195552135154147
+            ], 
+            "uuid": "11315781-21ed-4d85-80c8-3d9a36a49048"
+          }
+        ], 
+        "meta": {
+          "var": {}, 
+          "label": "isequal"
+        }, 
+        "name": "isequal", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "out", 
+            "deletable": false, 
+            "dataType": 4, 
+            "editable": false, 
+            "curr_dataType": 4, 
+            "bLabelHidden": false, 
+            "value": true, 
+            "uuid": "b3d37770-af3d-47c7-9244-367e1430325b"
+          }
+        ], 
+        "y": -166.25185185185182, 
+        "x": -173.20740740740737, 
+        "computeCode": "def compute(self):\n    # arguments will be taken from inputs\n    kwargs = {}\n    for i in self.inputs.values():\n        if i.dataType is not DataTypes.Exec:\n            kwargs[i.name] = i.getData()\n    for ref in refs:\n        if ref.dataType is not DataTypes.Exec:\n            kwargs[ref.name] = ref.setData\n    result = foo(**kwargs)\n    if returnType is not None:\n        self.setData('out', result)\n    if nodeType == NodeTypes.Callable:\n        outExec.call()\n", 
+        "type": "isequal", 
+        "uuid": "02b291a0-c527-4dff-8538-455543975163"
+      }, 
+      {
+        "inputs": [], 
+        "meta": {
+          "var": {
+            "accessLevel": 0, 
+            "type": 8, 
+            "name": "NewVar", 
+            "value": "[ 2.14750485 -1.08939927  2.19555214]", 
+            "uuid": "f62b05f6-a289-46bc-8a62-96f6d53b9b38"
+          }, 
+          "label": "NewVar"
+        }, 
+        "name": "NewVar", 
+        "outputs": [
+          {
+            "direction": 1, 
+            "bDirty": false, 
+            "name": "val", 
+            "deletable": false, 
+            "dataType": 8, 
+            "editable": false, 
+            "curr_dataType": 8, 
+            "bLabelHidden": true, 
+            "value": [
+              2.1475048453157624, 
+              -1.0893992682207156, 
+              2.195552135154147
+            ], 
+            "uuid": "11112b12-b709-4521-8301-8bc07a237da6"
+          }
+        ], 
+        "y": -188.29629629629625, 
+        "x": -267.2888888888889, 
+        "computeCode": "def compute(self):\n    self.out.setData(self.var.value)\n", 
+        "type": "GetVarNode", 
+        "uuid": "e77eacb3-7116-4c65-a100-c298182207cb"
+      }
+    ], 
+    "edges": [
+      {
+        "sourceName": "NewVar.out0", 
+        "sourceUUID": "83eeb0eb-2504-44c5-a39f-6dfe66f2ec12", 
+        "destinationName": "pythonNode.pinName", 
+        "destinationUUID": "86f526a2-0c76-47e7-9e2c-15de26db2d33", 
+        "uuid": "686427d3-ec83-498d-9bcb-342192d29960"
+      }, 
+      {
+        "sourceName": "pythonNode.translate_1", 
+        "sourceUUID": "db04d450-da8e-42bd-ada3-f94838c9f049", 
+        "destinationName": "isequal.b", 
+        "destinationUUID": "11315781-21ed-4d85-80c8-3d9a36a49048", 
+        "uuid": "ff60be07-eafa-4c8a-b0ab-3f4c1cb05a73"
+      }, 
+      {
+        "sourceName": "isequal.out", 
+        "sourceUUID": "b3d37770-af3d-47c7-9244-367e1430325b", 
+        "destinationName": "branch.Condition", 
+        "destinationUUID": "78919561-910a-4f17-b14e-c29ce3abf1f0", 
+        "uuid": "e4e6fe72-773a-422a-8941-0ddf325e9a16"
+      }, 
+      {
+        "sourceName": "timer.OUT", 
+        "sourceUUID": "763892ba-7bcd-4933-b813-bafb44346a97", 
+        "destinationName": "branch.In", 
+        "destinationUUID": "83249da4-921c-4389-bc60-95f8bac02b2c", 
+        "uuid": "dea5e2cb-0478-49de-8bcc-2b286b77a383"
+      }, 
+      {
+        "sourceName": "branch.False", 
+        "sourceUUID": "c27a25cc-d16d-4b44-b653-db7c975f1a94", 
+        "destinationName": "NewVar.in0", 
+        "destinationUUID": "fac4a40d-bf07-47be-a977-16187093b0cb", 
+        "uuid": "59ad74f1-73b1-4bbc-9c50-d2df78b7cd89"
+      }, 
+      {
+        "sourceName": "NewVar.val", 
+        "sourceUUID": "11112b12-b709-4521-8301-8bc07a237da6", 
+        "destinationName": "isequal.a", 
+        "destinationUUID": "c95bf8d7-f061-4658-a613-b0f537ab7847", 
+        "uuid": "b7ad257f-3e94-4012-8fe3-d2e19af78b67"
+      }, 
+      {
+        "sourceName": "pythonNode.translate_1", 
+        "sourceUUID": "db04d450-da8e-42bd-ada3-f94838c9f049", 
+        "destinationName": "NewVar.inp", 
+        "destinationUUID": "e5433592-5b59-4623-abb7-63ae13f14d05", 
+        "uuid": "72884cc8-5113-43a6-93ad-129caa01c752"
+      }
+    ], 
+    "variables": [
+      {
+        "accessLevel": 0, 
+        "type": 8, 
+        "name": "NewVar", 
+        "value": "[ 2.14750485 -1.08939927  2.19555214]", 
+        "uuid": "f62b05f6-a289-46bc-8a62-96f6d53b9b38"
+      }
+    ]
+  }
+}

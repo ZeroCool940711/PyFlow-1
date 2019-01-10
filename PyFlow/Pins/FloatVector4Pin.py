@@ -20,16 +20,20 @@ class FloatVector4Pin(PinWidgetBase):
     def color():
         return Colors.FloatVector4
 
+    @staticmethod
+    def processData( data):
+        if isinstance(data, Vector4):
+            return data
+        elif isinstance(data, list) and len(data) == 4:
+            return Vector4(data)
+        else:
+            return Vector4()  
+           
     def serialize(self):
         data = PinWidgetBase.serialize(self)
         data['value'] = self.currentData().xyzw.tolist()
         return data
 
     def setData(self, data):
-        if isinstance(data, Vector4):
-            self._data = data
-        elif isinstance(data, list) and len(data) == 4:
-            self._data = Vector4(data)
-        else:
-            self._data = self.defaultValue()
+        self._data = self.processData(data)
         PinWidgetBase.setData(self, self._data)
