@@ -112,6 +112,14 @@ class pythonNode(Node, NodeBase):
     def contextMenuEvent(self, event):
         self.menu.exec_(event.screenPos())
 
+    def mouseDoubleClickEvent(self, event):
+        #Node.mouseDoubleClickEvent( event)
+        self.OnDoubleClick(self.mapToScene(event.pos()))
+        event.accept()
+
+    def OnDoubleClick(self,pos):
+        self.openEditor()
+        
     @staticmethod
     def keywords():
         return ['Code', 'Expression']

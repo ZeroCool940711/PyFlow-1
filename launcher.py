@@ -5,12 +5,14 @@ from PyFlow.App import PyFlow
 
 FILE_DIR = path.dirname(__file__)
 
-SETTINGS_PATH = FILE_DIR + "PyFlow/appConfig.ini"
+SETTINGS_PATH = path.join(FILE_DIR, "PyFlow", "appConfig.ini")
 
+STYLE_PATH = path.join(FILE_DIR, "PyFlow", "style.css")
 
 app = QApplication(sys.argv)
 
 app.setStyle(QStyleFactory.create("plastique"))
+
 instance = PyFlow.instance()
 app.setActiveWindow(instance)
 instance.show()

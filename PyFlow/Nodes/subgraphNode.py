@@ -24,7 +24,8 @@ class subgraphNode(Node):
         self._graph.outPinCreated.connect(self.createOutput)
         self._graph.inPinCreated.connect(self.createInput)      
         self.dlg = MyDialog()
-        self.dlg.setStyleSheet(self.graph().parent.styleSheetEditor.getStyleSheet())
+        self.styleSheetEditor = self.graph().styleSheetEditor
+        self.dlg.setStyleSheet(self.styleSheetEditor.getStyleSheet())
         self.dlg.setLayout(QtWidgets.QHBoxLayout())
         self.dlg.layout().addWidget(self._graph)
         self._category = "CustomGraphs"

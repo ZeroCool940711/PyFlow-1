@@ -11,6 +11,7 @@ from Qt import QtCompat, QtCore, QtGui, QtWidgets
 
 class Ui_CodeEditorWidget(object):
     def setupUi(self, CodeEditorWidget):
+
         CodeEditorWidget.setObjectName("CodeEditorWidget")
         CodeEditorWidget.resize(889, 512)
         icon = QtGui.QIcon()
@@ -131,6 +132,7 @@ class Ui_CodeEditorWidget(object):
         self.retranslateUi(CodeEditorWidget)
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(CodeEditorWidget)
+        
 
     def retranslateUi(self, CodeEditorWidget):
         CodeEditorWidget.setWindowTitle(QtCompat.translate("CodeEditorWidget", "Python node editor", None, -1))
@@ -144,7 +146,7 @@ class Ui_CodeEditorWidget(object):
         self.pbReset.setText(QtCompat.translate("CodeEditorWidget", "reset", None, -1))
         self.pbSave.setText(QtCompat.translate("CodeEditorWidget", "save", None, -1))
 
-from .. import nodes_res_rc
+#from .. import nodes_res_rc
 if __name__ == '__main__':
     from Qt.QtWidgets import QApplication,QStyleFactory
     import sys

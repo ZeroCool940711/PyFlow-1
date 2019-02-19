@@ -237,7 +237,7 @@ class PyFlow(QMainWindow, GraphEditor_ui.Ui_MainWindow):
         self.gridLayout_6.addWidget(self.listViewUndoStack, 0, 0, 1, 1)
 
 
-
+        self.styleSheetEditor = StyleSheetEditor()
         self.G = GraphWidget('root', self)
         self.nodeBox2 = NodesBox(None,self.G)
         self.SceneLayout.addWidget(self.G)
@@ -277,13 +277,13 @@ class PyFlow(QMainWindow, GraphEditor_ui.Ui_MainWindow):
         self.tick_timer.timeout.connect(self.mainLoop)
 
 
-        self.styleSheetEditor = StyleSheetEditor()
+
         self.styleSheetEditor.Updated.connect(self.updateStyle)
 
         QApp = QCoreApplication.instance()    
         
         #QApp.setStyleSheet( self.styleSheetEditor.getStyleSheet() )
-        self.setStyleSheet( self.styleSheetEditor.getStyleSheet() )
+        #self.setStyleSheet( self.styleSheetEditor.getStyleSheet() )
         self.setStyleSheet( self.styleSheetEditor.getStyleSheet() )
 
     def editTheme(self):

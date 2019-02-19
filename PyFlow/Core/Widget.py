@@ -585,6 +585,7 @@ class GraphWidget(QGraphicsView, Graph):
         self.setDragMode(QGraphicsView.RubberBandDrag)
         self.undoStack = QUndoStack(self)
         self.parent = parent
+        self.styleSheetEditor = self.parent.styleSheetEditor
         self.parent.actionClear_history.triggered.connect(self.undoStack.clear)
         self.parent.listViewUndoStack.setStack(self.undoStack)
         self.menu = QMenu()
@@ -703,8 +704,6 @@ class GraphWidget(QGraphicsView, Graph):
         event.accept()
 
     def OnDoubleClick(self, pos):
-        
-        #print self.pressed_item.__class__
         if self.pressed_item and isinstance(self.pressed_item, NodeName):
             if self.pressed_item.IsRenamable():
                 name, result = QInputDialog.getText(self, "New name dialog", "Enter new name:")

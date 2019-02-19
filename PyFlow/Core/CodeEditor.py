@@ -197,6 +197,7 @@ class WCodeEditor(QWidget, CodeEditor_ui.Ui_CodeEditorWidget):
         super(WCodeEditor, self).__init__()
         self.setupUi(self)
         self.graph = graph
+        self.setStyleSheet( self.graph.styleSheetEditor.getStyleSheet() ) 
         self.nodeUid = node.uid
         self.uid = uid
 
@@ -214,7 +215,7 @@ class WCodeEditor(QWidget, CodeEditor_ui.Ui_CodeEditorWidget):
         self.gridLayout.addWidget(self.plainTextEdit, 0, 0, 1, 1)
         PythonSyntax.PythonHighlighter(self.plainTextEdit.document())
         option = QtGui.QTextOption()
-        option.setFlags(option.Flags() | QtGui.QTextOption.ShowTabsAndSpaces)
+        #option.setFlags(option.Flags() | QtGui.QTextOption.ShowTabsAndSpaces)
         self.plainTextEdit.document().setDefaultTextOption(option)
         self.tabWidget.currentChanged.connect(self.OnCurrentTabChanged)
         self.setFontSize(10)
