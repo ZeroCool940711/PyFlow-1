@@ -142,7 +142,10 @@ class pythonNode(Node, NodeBase):
         name_filter = "Node Files (*.py)"
         pth = QFileDialog.getSaveFileName(filter=name_filter)
         if not pth == '':
-            file_path = pth
+            if type(pth) in [tuple,list]:
+                file_path = pth[0]
+            else:
+                file_path = pth
             path,name = os.path.split(file_path)
             name,ext = os.path.splitext(name)
             if name in existing_nodes:
