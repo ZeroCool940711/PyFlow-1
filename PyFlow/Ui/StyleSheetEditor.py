@@ -9,6 +9,7 @@ if __name__ == '__main__':
 	import stylesheet
 else:
 	from .. import stylesheet
+	from .. import resources
 
 
 class StyleSheetEditor(QtWidgets.QWidget):
