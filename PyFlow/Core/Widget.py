@@ -783,10 +783,8 @@ class GraphWidget(QGraphicsView, Graph):
             if not path.isfile(self._current_file_name):
                 name_filter = "Graph files (*.pyGraph)"
                 pth = QFileDialog.getSaveFileName(filter=name_filter)
-                
                 if type(pth) in [tuple,list]:
                     pth = pth[0]
-                
                 if not pth == '':
                     self._current_file_name = pth
                 else:

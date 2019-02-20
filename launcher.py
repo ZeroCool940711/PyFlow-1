@@ -15,7 +15,7 @@ app.setStyle(QStyleFactory.create("plastique"))
 
 instance = PyFlow.instance()
 app.setActiveWindow(instance)
-instance.show()
+instance.show()	
 
 try:
     sys.exit(app.exec_())

@@ -319,8 +319,8 @@ class commentNode(Node, NodeBase):
                 if pin in self.commentInputs:
                     pin.prevPos = QtCore.QPointF(self.scenePos().x()-8,self.scenePos().y())-pin.scenePos()
                 elif pin in self.commentOutpus:
-                    pin.prevPos =QtCore.QPointF(self.scenePos().x()+self.boundingRect().width()-8,self.scenePos().y())-pin.scenePos()                    
-                pin.translate(pin.prevPos.x(),pin.prevPos.y()) 
+                    pin.prevPos =QtCore.QPointF(self.scenePos().x()+self.boundingRect().width()-8,self.scenePos().y())-pin.scenePos()
+                pin.moveBy(pin.prevPos.x(),pin.prevPos.y()) 
                 pin.update()
             
             for edge in self.edgesToHide:
@@ -331,7 +331,7 @@ class commentNode(Node, NodeBase):
             for node in self.nodesToMove:
                 node.show() 
             for pin in self.pinsToMove:
-                pin.translate(-pin.prevPos.x(),-pin.prevPos.y())  
+                pin.moveBy(-pin.prevPos.x(),-pin.prevPos.y())  
             for edge in self.edgesToHide:
                 edge.show()                               
         self.update()           
