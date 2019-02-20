@@ -243,7 +243,7 @@ class commentNode(Node, NodeBase):
         self.pinsToMove.clear()  
         self.nodesNamesToMove = []
         edges = []   
-        for node in [i for i in nodes if isinstance(i, Node) and not isinstance(i, commentNode)]:
+        for node in [i for i in nodes if isinstance(i, Node) and not isinstance(i, commentNode) and i.isVisible()]:
             self.nodesNamesToMove.append(node.uid)
             self.nodesToMove[node] = node.scenePos()
             node.groupNode = self
@@ -257,11 +257,7 @@ class commentNode(Node, NodeBase):
             for i in node.inputs.values()+node.outputs.values():
                 for edg in i.edge_list:
                     if edg.source().parent() in self.nodesToMove and edg.destination().parent() in self.nodesToMove:
-                        self.edgesToHide.append(edg)     
-
-        #for edge in [i for i in self.collidingItems() if isinstance(i, Edge) and not isinstance(i, commentNode)]:
-        #    if edge.source().parent() in self.nodesToMove and edge.destination().parent() in self.nodesToMove:
-        #        self.edgesToHide.append(edge)         
+                        self.edgesToHide.append(edg)         
 
     def mouseMoveEvent(self, event):
         QGraphicsItem.mouseMoveEvent(self, event)
@@ -311,7 +307,6 @@ class commentNode(Node, NodeBase):
             self.prevRect = self.rect.bottom()
             self.rect.setBottom(self.label().h/2)
 
-            
             for node in self.nodesToMove:
                 node.hide()
             
@@ -319,7 +314,7 @@ class commentNode(Node, NodeBase):
                 if pin in self.commentInputs:
                     pin.prevPos = QtCore.QPointF(self.scenePos().x()-8,self.scenePos().y())-pin.scenePos()
                 elif pin in self.commentOutpus:
-                    pin.prevPos =QtCore.QPointF(self.scenePos().x()+self.boundingRect().width()-8,self.scenePos().y())-pin.scenePos()
+                    pin.prevPos = QtCore.QPointF(self.scenePos().x()+self.boundingRect().width()-8,self.scenePos().y())-pin.scenePos()
                 pin.moveBy(pin.prevPos.x(),pin.prevPos.y()) 
                 pin.update()
             
