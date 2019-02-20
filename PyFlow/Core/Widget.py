@@ -104,7 +104,6 @@ class AutoPanController(object):
         self.tempnode = None
     def Tick(self, rect, pos):
         if self.bAllow:
-            print pos
             if pos.x() < 0:
                 self.autoPanDelta = QtGui.QVector2D(-self.amount, 0.0)
                 self.beenOutside = True
@@ -192,7 +191,6 @@ class SceneClass(QGraphicsScene):
         else:
             event.ignore()
     def dragLeaveEvent(self,event):
-        print event
         if self.tempnode:
             self.removeItem(self.tempnode)
     def dragMoveEvent(self, event):
@@ -889,7 +887,7 @@ class GraphWidget(QGraphicsView, Graph):
             except Exception as e:
                 print(edgeJson)
                 print(e)       
-                pass                 
+                pass          
         self._current_file_name = path
         self._file_name_label.setPlainText(self._current_file_name)
         self.frameAllNodes()
@@ -898,8 +896,8 @@ class GraphWidget(QGraphicsView, Graph):
             if isinstance(node,Nodes.commentNode.commentNode):
                 if not node.expanded:
                     node.expanded = True
-                    node.updateChildrens(node.nodesToMove.keys())                  
-                    node.OnDoubleClick(None)   
+                    node.updateChildrens(node.nodesToMove.keys())            
+                    node.OnDoubleClick(None)  
     def getPinByFullName(self, full_name):
         node_name = full_name.split('.')[0]
         pinName = full_name.split('.')[1]
