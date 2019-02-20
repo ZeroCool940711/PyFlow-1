@@ -279,20 +279,13 @@ class PyFlow(QMainWindow, GraphEditor_ui.Ui_MainWindow):
 
 
         self.styleSheetEditor.Updated.connect(self.updateStyle)
-
-        QApp = QCoreApplication.instance()    
-        
-        #QApp.setStyleSheet( self.styleSheetEditor.getStyleSheet() )
-        #self.setStyleSheet( self.styleSheetEditor.getStyleSheet() )
         self.setStyleSheet( self.styleSheetEditor.getStyleSheet() )
 
     def editTheme(self):
         self.styleSheetEditor.show()
 
     def updateStyle(self)   : 
-        if self.styleSheetEditor:
-            QApp = QCoreApplication.instance()
-            #QApp.setStyleSheet( self.styleSheetEditor.getStyleSheet() )     
+        if self.styleSheetEditor:    
             self.setStyleSheet( self.styleSheetEditor.getStyleSheet() )
 
     def startMainLoop(self):
