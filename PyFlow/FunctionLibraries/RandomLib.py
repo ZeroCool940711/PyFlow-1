@@ -1,6 +1,7 @@
 from ..Core.FunctionLibrary import *
 from ..Core.AGraphCommon import *
 
+import random
 
 class RandomLib(FunctionLibraryBase):
     '''doc string for RandomLib'''
@@ -14,7 +15,7 @@ class RandomLib(FunctionLibraryBase):
         '''
         Return a random integer N such that a <= N <= b
         '''
-        push(Result)
+        #push(Result)
         Result(random.randint(start, end))
 
     @staticmethod
