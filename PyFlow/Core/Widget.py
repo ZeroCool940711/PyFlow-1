@@ -1466,9 +1466,6 @@ class GraphWidget(QGraphicsView, Graph):
             self._manipulationMode = MANIP_MODE_NONE
 
         elif self._manipulationMode == MANIP_MODE_SELECT:
-            # If users simply clicks in the empty space, clear selection.
-            if self.mapToScene(event.pos()) == self._selectionRect.pos():
-                self.clearSelection()
             self._selectionRect.destroy()
             self._selectionRect = None
             self._manipulationMode = MANIP_MODE_NONE
