@@ -1240,7 +1240,11 @@ class GraphWidget(QGraphicsView, Graph):
                 self._mouseDownSelection = self.selectedNodes()
                 if modifiers not in  [QtCore.Qt.ShiftModifier,QtCore.Qt.ControlModifier]:
                     super(GraphWidget, self).mousePressEvent(event)
-            elif event.button() == QtCore.Qt.MiddleButton or event.button() == QtCore.Qt.MiddleButton and modifiers == QtCore.Qt.NoModifier:
+            else:
+                if hasattr(self,"_selectionRect") and self._selectionRect != None:
+                    self._selectionRect.destroy()
+                    self._selectionRect = None                    
+            if event.button() == QtCore.Qt.MiddleButton or event.button() == QtCore.Qt.MiddleButton and modifiers == QtCore.Qt.NoModifier:
                 self.viewport().setCursor(QtCore.Qt.OpenHandCursor)
                 self._manipulationMode = MANIP_MODE_PAN
                 self._lastPanPoint = self.mapToScene(event.pos())                
