@@ -1,5 +1,5 @@
-from os import listdir, path, startfile
-import sys
+from os import listdir, path, system
+import sys, platform
 from Qt import QtGui
 from Qt import QtCore
 from Qt import QtWidgets
@@ -29,6 +29,9 @@ SETTINGS_PATH = FILE_DIR + "/appConfig.ini"
 STYLE_PATH = FILE_DIR + "/style.css"
 EDITOR_TARGET_FPS = 60
 
+#This will be used to check what
+# platform PyFlow is running in.
+OS_PLATFORM = platform.system()
 
 class PluginType:
     pNode = 0
@@ -189,7 +192,10 @@ class {0}(PinWidgetBase):
         with open(file_path, "wb") as f:
             f.write(NodeTemplate)
         print("[INFO] Node {0} been created.\nIn order to appear in node box, restart application.".format(name))
-        startfile(file_path)
+        if OS_PLATFORM == 'Windows':
+            os.system(file_path)
+        else:
+            os.system(file_path)
 
     if pluginType == PluginType.pCommand:
         file_path = "{0}/{1}.py".format(Commands.__path__[0], name)
@@ -201,7 +207,10 @@ class {0}(PinWidgetBase):
         with open(file_path, "wb") as f:
             f.write(CommandTemplate)
         print("[INFO] Command {0} been created.\n Restart application.".format(name))
-        startfile(file_path)
+        if OS_PLATFORM == 'Windows':
+            os.system(file_path)
+        else:
+            os.system(file_path)        
 
     if pluginType == PluginType.pFunctionLibrary:
         filePath = "{0}/{1}.py".format(FunctionLibraries.__path__[0], name)
@@ -213,7 +222,11 @@ class {0}(PinWidgetBase):
         with open(filePath, "wb") as f:
             f.write(LibraryTemplate)
         print("[INFO] Function lib {0} been created.\n Restart application.".format(name))
-        startfile(filePath)
+        
+        if OS_PLATFORM == 'Windows':
+            os.system(file_path)
+        else:
+            os.system(file_path)
 
     if pluginType == PluginType.pPin:
         filePath = "{0}/{1}.py".format(Pins.__path__[0], name)
@@ -225,7 +238,11 @@ class {0}(PinWidgetBase):
         with open(filePath, "wb") as f:
             f.write(PinTemplate)
         print("[INFO] Pin {0} been created.\n Restart application.".format(name))
-        startfile(filePath)
+        
+        if OS_PLATFORM == 'Windows':
+            os.system(file_path)
+        else:   
+            os.system(file_path)        
 
 ## App itself
 class PyFlow(QMainWindow, GraphEditor_ui.Ui_MainWindow):
