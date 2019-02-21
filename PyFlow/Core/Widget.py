@@ -1257,7 +1257,7 @@ class GraphWidget(QGraphicsView, Graph):
                 self._lastSceneCenter = self._lastSceneRect.center()
                 self._lastScenePos = self.mapToScene(event.pos())
                 self._lastOffsetFromSceneCenter = self._lastScenePos - self._lastSceneCenter
-            else:
+            elif modifiers not in  [QtCore.Qt.ShiftModifier,QtCore.Qt.ControlModifier]:
                 super(GraphWidget, self).mousePressEvent(event) 
             self.node_box.hide()
         elif not isinstance(self.pressed_item,EditableLabel):
