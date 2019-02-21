@@ -5,6 +5,4 @@
 .vscode/
 PyFlow/Python27/
 PyFlow/appConfig.ini
-*pcLib.py
-*pc_ConvertToVideo.py
-*ShotGunLib.py
+PyFlow/old_packages
