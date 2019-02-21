@@ -1277,7 +1277,11 @@ class GraphWidget(QGraphicsView, Graph):
                     if modifiers == QtCore.Qt.AltModifier:
                         self.removeEdgeCmd(self.pressed_item.edge_list)
                 else:
+                    selected = self.selectedNodes()
                     super(GraphWidget, self).mousePressEvent(event)
+                    if modifiers == QtCore.Qt.ShiftModifier:
+                        for node in  selected:
+                            node.setSelected(True)
                     if isinstance(self.pressed_item,Nodes.commentNode.commentNode):
                         node = self.nodeFromInstance(self.pressed_item)
                         if node.bResize:
@@ -1295,7 +1299,7 @@ class GraphWidget(QGraphicsView, Graph):
                                 node.setSelected(True)
                                 if isinstance(node,Nodes.commentNode.commentNode):
                                     for n in node.nodesToMove:
-                                        n.setSelected(True)
+                                        n.setSelected(True)                       
                     else:
                         self.pressed_item.setSelected(True)
 
