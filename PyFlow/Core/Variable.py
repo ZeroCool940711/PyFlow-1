@@ -14,11 +14,19 @@ from Qt.QtWidgets import QApplication
 from Qt.QtWidgets import QSpacerItem
 from Qt.QtWidgets import QSizePolicy
 from uuid import uuid4
-import inspect
-from AbstractGraph import *
-import InputWidgets
+import inspect, sys
+
 from .. import Pins
 
+
+PYTHON_VERSION = sys.version_info
+
+if PYTHON_VERSION < (3,0,0):
+    from AbstractGraph import *
+    import InputWidgets    
+else:
+    from .AbstractGraph import *
+    from . import InputWidgets    
 
 ## Colored rounded rect
 # color corresponds to pin data type color

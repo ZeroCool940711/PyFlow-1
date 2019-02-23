@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from Qt import QtCore
+import sys
 
 qt_resource_data = "\
 \x00\x00\x01\x18\
@@ -2160,9 +2161,20 @@ qt_resource_struct = "\
 "
 
 def qInitResources():
-    QtCore.qRegisterResourceData(0x01, qt_resource_struct, qt_resource_name, qt_resource_data)
+    PYTHON_VERSION = sys.version_info
+    
+    if PYTHON_VERSION < (3,0,0):    
+        QtCore.qRegisterResourceData(0x01, qt_resource_struct, qt_resource_name, qt_resource_data)
+    else:
+        QtCore.qRegisterResourceData(0x01, qt_resource_struct.encode(), qt_resource_name.encode(), qt_resource_data.encode())
+        
 
 def qCleanupResources():
-    QtCore.qUnregisterResourceData(0x01, qt_resource_struct, qt_resource_name, qt_resource_data)
+    PYTHON_VERSION = sys.version_info
+    
+    if PYTHON_VERSION < (3,0,0):    
+        QtCore.qUnregisterResourceData(0x01, qt_resource_struct, qt_resource_name, qt_resource_data)
+    else:
+        QtCore.qRegisterResourceData(0x01, qt_resource_struct.encode(), qt_resource_name.encode(), qt_resource_data.encode())
 
 qInitResources()

@@ -7,9 +7,22 @@ The main idea is to describe argument types and default values.
 Using this information it becomes possible to create pins according to arguments types.
 """
 from inspect import getargspec
-from AGraphCommon import *
-from Settings import Colors
+
+import sys
+
+PYTHON_VERSION = sys.version_info
+
+if PYTHON_VERSION < (3,0,0):
+    from AGraphCommon import *
+    from Settings import Colors    
+else:
+    from .AGraphCommon import *
+    from .Settings import Colors        
+        
+    
+    
 empty = {}
+
 
 
 ## Turns function into a node
@@ -19,6 +32,13 @@ empty = {}
 # @param[in] nodeType determines wheter it is a Pure node or Callable. If Callable - input and output execution pins will be created
 # @sa [NodeTypes](@ref PyFlow.Core.AGraphCommon.NodeTypes) FunctionLibraries
 def IMPLEMENT_NODE(func=None, returns=empty, meta={'Category': 'Default', 'Keywords': []}, nodeType=NodeTypes.Pure,color=Colors.NodeBackgrounds):
+    """## Turns function into a node
+    # @param[in] func decorated function
+    # @param[in] returns it can be tuple with [data type identifier](@ref PyFlow.Core.AGraphCommon.DataTypes) + default value, or None
+    # @param[in] meta dictionary with category path, keywords and any additional info
+    # @param[in] nodeType determines wheter it is a Pure node or Callable. If Callable - input and output execution pins will be created
+    # @sa [NodeTypes](@ref PyFlow.Core.AGraphCommon.NodeTypes) FunctionLibraries
+    """
     def wrapper(func):
         func.__annotations__ = getattr(func, '__annotations__', {})
         func.__annotations__['nodeType'] = nodeType

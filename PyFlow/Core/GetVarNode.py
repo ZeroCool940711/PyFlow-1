@@ -2,15 +2,25 @@
 
 Builtin node to acess variable value.
 """
-from AbstractGraph import *
-from Settings import *
-from . import Node
+
 from Qt.QtWidgets import QStyle
 from Qt.QtWidgets import QGraphicsItem
 from Qt import QtCore
 from Qt import QtGui
 from ..Commands import RemoveNodes
 
+import sys
+
+PYTHON_VERSION = sys.version_info
+
+if PYTHON_VERSION < (3,0,0):
+    from AbstractGraph import *
+    from Settings import *
+    from . import Node
+else:
+    from .AbstractGraph import *
+    from .Settings import *    
+    from . import Node
 
 ## Variable getter node
 class GetVarNode(Node, NodeBase):

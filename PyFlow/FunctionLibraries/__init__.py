@@ -2,7 +2,7 @@
 
 Set of decorated functioins which will be turned into nodes. See examples under **PyFlow/FunctionLibraries**.
 """
-import os
+import os, sys
 from inspect import getmembers
 from inspect import isfunction
 
@@ -16,8 +16,15 @@ def _getFunctions():
         if lib.endswith(".py") and "__init__" not in lib:
             libName = lib.split(".")[0]
             try:
-                exec('from {0} import {0}'.format(libName))
-                exec('lib_class = {0}'.format(libName))
+                PYTHON_VERSION = sys.version_info
+                
+                if PYTHON_VERSION < (3,0,0):                
+                    exec('from {0} import {0}'.format(libName))
+                    exec('lib_class = {0}'.format(libName))
+                else:
+                    exec('from {0} import {0}'.format(libName))
+                    exec('lib_class = {0}'.format(libName))                    
+                    
 
                 libInstance = lib_class()
                 foos = libInstance.getFunctions()
@@ -29,7 +36,7 @@ def _getFunctions():
 
             except Exception as e:
                 # not load lib if any errors or unknown modules etc.
-                print e, libName
+                print (e, libName)
                 pass
 
 

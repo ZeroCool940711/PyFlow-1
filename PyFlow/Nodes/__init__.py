@@ -15,7 +15,7 @@ def _getClasses():
         if n.endswith(".py") and "__init__" not in n:
             nodeName = n.split(".")[0]
             try:
-                exec("from {0} import *".format(nodeName))
+                exec("from .{0} import *".format(nodeName))
                 exec("node_class = {0}".format(nodeName))
                 if nodeName not in _nodeClasses:
                     _nodeClasses[nodeName] = node_class

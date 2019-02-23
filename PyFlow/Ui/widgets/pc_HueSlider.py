@@ -3,7 +3,14 @@
 
 import sys
 from Qt import QtGui, QtCore,QtWidgets
-from pc_DoubleSlider import pc_DoubleSlider
+
+PYTHON_VERSION = sys.version_info
+
+if PYTHON_VERSION < (3,0,0):
+    from pc_DoubleSlider import pc_DoubleSlider
+else:
+    from .pc_DoubleSlider import pc_DoubleSlider
+
 styleSheet = """
 
 QSlider,QSlider:disabled,QSlider:focus     {  
@@ -74,7 +81,7 @@ class pc_HueSlider(pc_DoubleSlider):
             butts = QtCore.Qt.MouseButtons(QtCore.Qt.MidButton)
             try:##maya PySide?
                 nevent = QtGui.QMouseEvent(event.type(),QtCore.QPointF(event.pos()),QtCore.QPointF(event.globalPos()),QtCore.Qt.MidButton,butts,event.modifiers())
-                print "he"
+                print ("he")
             except:
                 nevent = QtGui.QMouseEvent(event.type(),event.pos(),event.globalPos(),QtCore.Qt.MidButton,butts,event.modifiers())
                 super(pc_HueSlider, self).mousePressEvent(nevent)
@@ -129,7 +136,7 @@ class pc_GradientSlider(pc_DoubleSlider):
             butts = QtCore.Qt.MouseButtons(QtCore.Qt.MidButton)
             try:##maya PySide?
                 nevent = QtGui.QMouseEvent(event.type(),QtCore.QPointF(event.pos()),QtCore.QPointF(event.globalPos()),QtCore.Qt.MidButton,butts,event.modifiers())
-                print "he"
+                print ("he")
             except:
                 nevent = QtGui.QMouseEvent(event.type(),event.pos(),event.globalPos(),QtCore.Qt.MidButton,butts,event.modifiers())
             super(pc_GradientSlider, self).mousePressEvent(nevent)

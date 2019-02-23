@@ -5,7 +5,7 @@ Node is a base class for all ui nodes. This is actually a QGraphicsItem with all
 Also, it implements [initializeFromFunction](@ref PyFlow.Core.Node.initializeFromFunction) method which constructs node from given annotated function.
 @sa FunctionLibrary.py
 """
-from Settings import *
+
 from Qt import QtCore
 from Qt import QtGui
 from Qt import QtWidgets
@@ -22,14 +22,29 @@ from Qt.QtWidgets import QLineEdit
 from Qt.QtWidgets import QApplication
 from Qt.QtWidgets import QTreeWidgetItem
 from Qt.QtWidgets import QWidget
-from AbstractGraph import *
+
 from ..Pins import CreatePin
 from types import MethodType
-from .InputWidgets import getInputWidget
 from inspect import getargspec
-from NodePainter import NodePainter
-from Enums import ENone
 from ..Ui.widgets.pc_editableLabel import EditableLabel
+
+import sys
+
+
+PYTHON_VERSION = sys.version_info
+
+if PYTHON_VERSION < (3,0,0):
+    from Settings import *
+    from AbstractGraph import *
+    from InputWidgets import getInputWidget
+    from NodePainter import NodePainter
+    from Enums import ENone    
+else:
+    from .Settings import *
+    from .AbstractGraph import *
+    from .InputWidgets import getInputWidget
+    from .NodePainter import NodePainter
+    from .Enums import ENone        
 
 
 class NodeName(QGraphicsTextItem):

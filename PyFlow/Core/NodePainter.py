@@ -3,11 +3,19 @@
 from Qt import QtCore
 from Qt import QtGui
 from Qt.QtWidgets import QStyle
-from Settings import *
+import sys
+
+PYTHON_VERSION = sys.version_info
+
+if PYTHON_VERSION < (3,0,0):
+    from Settings import *
+else:
+    from .Settings import *
 
 
-## Determines how to paint the node
 class NodePainter(object):
+    """Determines how to paint the node"""
+    
     @staticmethod
     def asConvertNode(node, painter, option, widget):
         pen = QtGui.QPen(QtCore.Qt.black, 0.5)

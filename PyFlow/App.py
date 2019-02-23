@@ -9,20 +9,8 @@ from Qt.QtCore import QCoreApplication
 from Qt.QtWidgets import QMessageBox
 from Qt.QtWidgets import QInputDialog
 from Qt.QtWidgets import QUndoView
-from Core.Widget import GraphWidget
-from Core.Widget import Direction
-from Core.Widget import NodesBox
-from Core.VariablesWidget import VariablesWidget
-import Nodes
-import Commands
-import FunctionLibraries
-import Pins
-import SubGraphs
-from Ui import GraphEditor_ui
-from time import clock
 
-from stylesheet import editableStyleSheet
-from Ui.StyleSheetEditor import StyleSheetEditor
+from time import clock
 
 FILE_DIR = path.dirname(__file__)
 SETTINGS_PATH = FILE_DIR + "/appConfig.ini"
@@ -30,9 +18,40 @@ STYLE_PATH = FILE_DIR + "/style.css"
 EDITOR_TARGET_FPS = 60
 
 #This will be used to check what
-# platform PyFlow is running in.
+# platform and Python version PyFlow
+# is running in and make sure everything
+# works on different platforms and
+# environments.
 OS_PLATFORM = platform.system()
+PYTHON_VERSION = sys.version_info
 
+if PYTHON_VERSION < (3,0,0):
+    import Nodes
+    import Commands
+    import FunctionLibraries
+    import Pins
+    import SubGraphs
+    from Ui import GraphEditor_ui    
+    from Core.Widget import GraphWidget
+    from Core.Widget import Direction
+    from Core.Widget import NodesBox
+    from Core.VariablesWidget import VariablesWidget
+    from stylesheet import editableStyleSheet
+    from Ui.StyleSheetEditor import StyleSheetEditor    
+else:
+    from . import Nodes
+    from . import Commands
+    from . import FunctionLibraries
+    from . import Pins
+    from . import SubGraphs
+    from .Ui import GraphEditor_ui    
+    from .Core.Widget import GraphWidget
+    from .Core.Widget import Direction
+    from .Core.Widget import NodesBox
+    from .Core.VariablesWidget import VariablesWidget
+    from .stylesheet import editableStyleSheet
+    from .Ui.StyleSheetEditor import StyleSheetEditor    
+    
 class PluginType:
     pNode = 0
     pCommand = 1

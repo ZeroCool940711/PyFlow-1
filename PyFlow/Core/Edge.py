@@ -4,11 +4,17 @@ Edge is a cubic spline curve. It represents connecton between two pins.
 from Qt import QtCore
 from Qt import QtGui
 from Qt.QtWidgets import QGraphicsPathItem
-from Settings import Colors
-from AbstractGraph import *
-import weakref
+import weakref, sys
 from uuid import UUID, uuid4
 
+PYTHON_VERSION = sys.version_info
+
+if PYTHON_VERSION < (3,0,0):
+    from Settings import Colors
+    from AbstractGraph import *
+else:
+    from .Settings import Colors
+    from .AbstractGraph import *    
 
 ## Connection between pins
 class Edge(QGraphicsPathItem):

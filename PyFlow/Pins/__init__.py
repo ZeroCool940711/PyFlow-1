@@ -2,9 +2,12 @@
 """
 from __future__ import absolute_import
 import os
-_PINS = {}
 from ..Core.AGraphCommon import DataTypes
+
+_PINS = {}
 _suportedTypes = {}
+
+
 def _REGISTER_PIN_TYPE(pinSubclass):
     '''
     registering pin

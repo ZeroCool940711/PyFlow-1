@@ -1,10 +1,15 @@
 from Qt import QtWidgets
 from Qt import QtCore
+import sys
 
-from widgets.pc_HueSlider import pc_HueSlider,pc_GradientSlider
+PYTHON_VERSION = sys.version_info
+
+if PYTHON_VERSION < (3,0,0):
+	from widgets.pc_HueSlider import pc_HueSlider,pc_GradientSlider
+else:
+	from .widgets.pc_HueSlider import pc_HueSlider,pc_GradientSlider
 
 if __name__ == '__main__':
-	import sys
 	sys.path.append("..")
 	import stylesheet
 else:
@@ -60,13 +65,12 @@ class StyleSheetEditor(QtWidgets.QWidget):
 		
 		self.Updated.emit()
 if __name__ == '__main__':
-	import sys
 	app = QtWidgets.QApplication(sys.argv)
 
 	a = StyleSheetEditor()
 	
 	def update():
-		print a.bgColor.value()
+		print (a.bgColor.value())
 		app.setStyleSheet( a.getStyleSheet() )
 
 

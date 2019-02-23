@@ -8,10 +8,21 @@ from Qt.QtWidgets import QWidget
 from Qt.QtWidgets import QListWidget
 from Qt.QtWidgets import QListWidgetItem
 from ..Ui import VariablesWidget_ui
-from Variable import VariableBase
+
+import sys
+
 from types import MethodType
-from AbstractGraph import *
+
 from uuid import uuid4
+
+PYTHON_VERSION = sys.version_info
+
+if PYTHON_VERSION < (3,0,0):
+    from AbstractGraph import *
+    from Variable import VariableBase
+else:
+    from .AbstractGraph import *
+    from .Variable import VariableBase    
 
 def lwMousePressEvent(self, event):
     QListWidget.mousePressEvent(self, event)

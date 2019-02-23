@@ -1,13 +1,20 @@
 """@file Pin.py
 """
+import sys
 from Qt import QtCore
 from Qt import QtGui
 from Qt.QtWidgets import QGraphicsWidget
 from Qt.QtWidgets import QMenu
 from Qt.QtWidgets import QApplication
-from AbstractGraph import *
-from Settings import *
 
+PYTHON_VERSION = sys.version_info
+
+if PYTHON_VERSION < (3,0,0):
+    from AbstractGraph import *
+    from Settings import *    
+else:
+    from .AbstractGraph import *
+    from .Settings import *    
 
 class PinWidgetBase(QGraphicsWidget, PinBase):
     '''

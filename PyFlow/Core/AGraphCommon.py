@@ -6,31 +6,54 @@ this file is imported in almost all others files of the program
 """
 import math
 import time
-from Settings import *
 import inspect
 from threading import Thread
 from functools import wraps
-from Queue import Queue
 import uuid
 import sys
 #from enum import IntEnum
 
 from aenum import extend_enum,IntEnum
-import Enums
+
+PYTHON_VERSION = sys.version_info
+
+if PYTHON_VERSION < (3,0,0):
+    from Settings import *
+    from Queue import Queue
+    import Enums
+    
+    ## determines step for all floating point input widgets
+    FLOAT_SINGLE_STEP = 0.01
+    ## determines floating precision
+    FLOAT_DECIMALS = 10
+    ## determines floating minimum value
+    FLOAT_RANGE_MIN = 0.1 + (-sys.maxint - 1.0)
+    ## determines floating maximum value
+    FLOAT_RANGE_MAX = sys.maxint + 0.1
+    ## determines int minimum value
+    INT_RANGE_MIN = -sys.maxint + 0
+    ## determines int maximum value
+    INT_RANGE_MAX = sys.maxint + 0    
+    
+else:
+    from .Settings import *
+    from . import Enums
+    from multiprocessing import Queue
+    
+    ## determines step for all floating point input widgets
+    FLOAT_SINGLE_STEP = 0.01
+    ## determines floating precision
+    FLOAT_DECIMALS = 10
+    ## determines floating minimum value
+    FLOAT_RANGE_MIN = 0.1 + (-sys.maxsize - 1.0)
+    ## determines floating maximum value
+    FLOAT_RANGE_MAX = sys.maxsize + 0.1
+    ## determines int minimum value
+    INT_RANGE_MIN = -sys.maxsize + 0
+    ## determines int maximum value
+    INT_RANGE_MAX = sys.maxsize + 0    
 
 
-## determines step for all floating point input widgets
-FLOAT_SINGLE_STEP = 0.01
-## determines floating precision
-FLOAT_DECIMALS = 10
-## determines floating minimum value
-FLOAT_RANGE_MIN = 0.1 + (-sys.maxint - 1.0)
-## determines floating maximum value
-FLOAT_RANGE_MAX = sys.maxint + 0.1
-## determines int minimum value
-INT_RANGE_MIN = -sys.maxint + 0
-## determines int maximum value
-INT_RANGE_MAX = sys.maxint + 0
 
 
 ## Performs a linear interpolation
@@ -164,7 +187,7 @@ def registerDatatype(name):
     if name not in [x.name for x in DataTypes]:
         extend_enum(DataTypes,name,getNewDataTypeIndex())
     else:
-        print Exception("Error registering DataTypes type with Name {0} ,already registered".format(name))
+        print (Exception("Error registering DataTypes type with Name {0} ,already registered".format(name)))
 
 def getNewDataTypeIndex():
     return  max([x.value for x in DataTypes])+1

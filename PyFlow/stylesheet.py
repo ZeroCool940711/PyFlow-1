@@ -1,76 +1,83 @@
 from Qt import QtGui
-import inspect
-from Core.Settings import Colors
+import inspect, sys
+
+PYTHON_VERSION = sys.version_info
+
+if PYTHON_VERSION < (3,0,0):
+	from Core.Settings import Colors
+else:
+	from .Core.Settings import Colors
 
 def clamp(val,min_value,max_value):
-    return max(min(val, max_value), min_value)
+	return max(min(val, max_value), min_value)
+
 class editableStyleSheet():
-  def __init__(self):
+	def __init__(self):
 
-    self.MainColor =            Colors.Orange
-    self.MainColor_Lighter =    Colors.OrangeLighter
-    self.MainColor_Lighter_2 =   Colors.OrangeLighter2
+		self.MainColor =            Colors.Orange
+		self.MainColor_Lighter =    Colors.OrangeLighter
+		self.MainColor_Lighter_2 =   Colors.OrangeLighter2
 
-    self.MainColor_Darker =     Colors.OrangeDarker
+		self.MainColor_Darker =     Colors.OrangeDarker
 
-    self.BG_COLOR =          Colors.Black
-    self.BLACK =            Colors.AbsoluteBlack
+		self.BG_COLOR =          Colors.Black
+		self.BLACK =            Colors.AbsoluteBlack
 
-    self.GREY =             Colors.Grey
+		self.GREY =             Colors.Grey
 
-    self.GreyGrad1 = Colors.Grey1
-    self.GreyGrad2 = Colors.Grey2
-    self.GreyGrad3 = Colors.Grey3
+		self.GreyGrad1 = Colors.Grey1
+		self.GreyGrad2 = Colors.Grey2
+		self.GreyGrad3 = Colors.Grey3
 
-    self.TEXT_COLOR =       QtGui.QColor(177, 177, 177)
-    self.BORDER_COLOR =     Colors.SceneBackground
-    self.SHADOW_COLOR =     Colors.Shadow
+		self.TEXT_COLOR =       QtGui.QColor(177, 177, 177)
+		self.BORDER_COLOR =     Colors.SceneBackground
+		self.SHADOW_COLOR =     Colors.Shadow
 
-    self.storeDeffaults()
-  def storeDeffaults(self):
-    for name,obj in inspect.getmembers(self):
-      if isinstance(obj,QtGui.QColor):
-        obj.default = obj.name()
+		self.storeDeffaults()
+	def storeDeffaults(self):
+		for name,obj in inspect.getmembers(self):
+			if isinstance(obj,QtGui.QColor):
+				obj.default = obj.name()
 
-  def setHue(self,hue):
-    for name,obj in inspect.getmembers(self):
-      if isinstance(obj,QtGui.QColor) and name in ["MainColor","MainColor_Lighter","MainColor_Lighter_2","MainColor_Darker"]:
-        c = QtGui.QColor(obj.default)
-        h,s,l,a = c.getHslF()
-        obj.setHslF((h+hue)%1, s, l, a)
+	def setHue(self,hue):
+		for name,obj in inspect.getmembers(self):
+			if isinstance(obj,QtGui.QColor) and name in ["MainColor","MainColor_Lighter","MainColor_Lighter_2","MainColor_Darker"]:
+				c = QtGui.QColor(obj.default)
+				h,s,l,a = c.getHslF()
+				obj.setHslF((h+hue)%1, s, l, a)
 
-  def setLightness(self,light):
-    for name,obj in inspect.getmembers(self):
-      if isinstance(obj,QtGui.QColor) and name in ["MainColor_Lighter","MainColor_Lighter_2","MainColor_Darker"]:
-        c = QtGui.QColor(self.MainColor.default)
-        h0,s0,l0,a0 = c.getHslF()
-        c = QtGui.QColor(obj.default)
-        h1,s1,l1,a1 = c.getHslF()
-        h,s,l,a = obj.getHslF()
-        obj.setHslF(h, s, clamp(l1-l0+light,0,1), a)
-      elif isinstance(obj,QtGui.QColor) and name == "MainColor":
-        h,s,l,a = obj.getHslF()
-        obj.setHslF(h, s, light, a)
+	def setLightness(self,light):
+		for name,obj in inspect.getmembers(self):
+			if isinstance(obj,QtGui.QColor) and name in ["MainColor_Lighter","MainColor_Lighter_2","MainColor_Darker"]:
+				c = QtGui.QColor(self.MainColor.default)
+				h0,s0,l0,a0 = c.getHslF()
+				c = QtGui.QColor(obj.default)
+				h1,s1,l1,a1 = c.getHslF()
+				h,s,l,a = obj.getHslF()
+				obj.setHslF(h, s, clamp(l1-l0+light,0,1), a)
+			elif isinstance(obj,QtGui.QColor) and name == "MainColor":
+				h,s,l,a = obj.getHslF()
+				obj.setHslF(h, s, light, a)
 
-  def setBg(self,value):
-    c = QtGui.QColor(self.BG_COLOR.default)
-    h0,s0,l0,a0 = c.getHslF()
-    self.BG_COLOR.setHslF(h0,s0,value,a0)
-    c = QtGui.QColor(self.TEXT_COLOR.default)
-    h,s,l,a = c.getHslF()
-    self.TEXT_COLOR.setHslF(h,s,clamp(1.0-(value+0.25),0,1),a)
+	def setBg(self,value):
+		c = QtGui.QColor(self.BG_COLOR.default)
+		h0,s0,l0,a0 = c.getHslF()
+		self.BG_COLOR.setHslF(h0,s0,value,a0)
+		c = QtGui.QColor(self.TEXT_COLOR.default)
+		h,s,l,a = c.getHslF()
+		self.TEXT_COLOR.setHslF(h,s,clamp(1.0-(value+0.25),0,1),a)
 
-    for i in [self.GreyGrad1,self.GreyGrad2,self.GreyGrad3]:
-      c = QtGui.QColor(i.default)
-      h1,s1,l1,a1 = c.getHslF()
-      h,s,l,a = i.getHslF()
-      i.setHslF(h,s,clamp(l1-l0+value,0,1),a)
-   
-
+		for i in [self.GreyGrad1,self.GreyGrad2,self.GreyGrad3]:
+			c = QtGui.QColor(i.default)
+			h1,s1,l1,a1 = c.getHslF()
+			h,s,l,a = i.getHslF()
+			i.setHslF(h,s,clamp(l1-l0+value,0,1),a)
 
 
-  def getStyleSheet(self):
-    return """
+
+
+	def getStyleSheet(self):
+		return """
 
 QToolTip              {{   border: 1px solid black;
                           background-color: {0};
@@ -399,20 +406,20 @@ QTreeView::branch:closed:has-children             {{    image: url(:/arrow_right
 
 
 """.format( self.MainColor.name(),        #0
-            self.BG_COLOR.name(),        #1
-            self.MainColor_Darker.name(),   #2
-            self.MainColor_Lighter.name(),  #3
-            self.BLACK.name(),          #4
-            self.MainColor_Lighter_2.name(), #5
-            self.GREY.name(),           #6
-            self.TEXT_COLOR.name(),     #7
-            self.BORDER_COLOR.name(),   #8
-            self.SHADOW_COLOR.name(),   #9
+			self.BG_COLOR.name(),        #1
+			self.MainColor_Darker.name(),   #2
+			self.MainColor_Lighter.name(),  #3
+			self.BLACK.name(),          #4
+			self.MainColor_Lighter_2.name(), #5
+			self.GREY.name(),           #6
+			self.TEXT_COLOR.name(),     #7
+			self.BORDER_COLOR.name(),   #8
+			self.SHADOW_COLOR.name(),   #9
 
-            self.GreyGrad1.name(),      #10 
-            self.GreyGrad2.name(),      #11 
-            self.GreyGrad3.name(),      #12
-            )       
+			self.GreyGrad1.name(),      #10 
+			self.GreyGrad2.name(),      #11 
+			self.GreyGrad3.name(),      #12
+			)       
 
 
 style = editableStyleSheet()

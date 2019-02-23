@@ -1,11 +1,17 @@
-from AGraphCommon import *
 import weakref
-import uuid
+import uuid, sys
 import inspect
 import keyword
 from collections import OrderedDict
 import itertools
 from copy import deepcopy
+
+PYTHON_VERSION = sys.version_info
+
+if PYTHON_VERSION < (3,0,0):
+    from AGraphCommon import *
+else:
+    from .AGraphCommon import *
 
 class ISerializable(object):
     """
@@ -576,7 +582,7 @@ class Graph(object):
 
     def setDebug(self, state):
         if not isinstance(state, bool):
-            print 'bool expected. skipped'
+            print ('bool expected. skipped')
             return
         self._debug = state
 
@@ -754,20 +760,20 @@ class Graph(object):
         push(edge.destination())
 
     def plot(self):
-        print self.name + '\n----------\n'
+        print (self.name + '\n----------\n')
         for n in self.getNodes():
-            print n.name
+            print (n.name)
             for inp in n.inputs.values():
-                print '|---', inp.name, 'data - {0}'.format(inp.currentData()), \
+                print ('|---', inp.name, 'data - {0}'.format(inp.currentData()), \
                     'affects on', [i.name for i in inp.affects], \
                     'affected_by ', [p.name for p in inp.affected_by], \
-                    'DIRTY ', inp.dirty
+                    'DIRTY ', inp.dirty)
                 for e in inp.edge_list:
-                    print '\t|---', e.__str__()
+                    print ('\t|---', e.__str__())
             for out in n.outputs.values():
-                print '|---' + out.name, 'data - {0}'.format(out.currentData()), \
+                print ('|---' + out.name, 'data - {0}'.format(out.currentData()), \
                     'affects on', [i.name for i in out.affects], \
                     'affected_by ', [p.name for p in out.affected_by], \
-                    'DIRTY', out.dirty
+                    'DIRTY', out.dirty)
                 for e in out.edge_list:
-                    print '\t|---', e.__str__()
+                    print ('\t|---', e.__str__())

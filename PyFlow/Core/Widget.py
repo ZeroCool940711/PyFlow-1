@@ -29,30 +29,46 @@ from Qt.QtWidgets import QGraphicsView
 from Qt.QtWidgets import QApplication
 from Qt.QtWidgets import QInputDialog
 from Qt.QtWidgets import QUndoStack
-import math
-import platform
-import random
-from Settings import Colors
-from AbstractGraph import *
-from Edge import Edge
-from Node import Node
-from Node import NodeName
-from GetVarNode import GetVarNode
-from SetVarNode import SetVarNode
-from SelectionRect import SelectionRect
+
 
 from .. import Commands
 from .. import FunctionLibraries
 from .. import Nodes
 from .. import SubGraphs
 from .. import Pins
-from os import listdir, path
-from .Variable import VariableBase
-from time import ctime
-import json
-import re
-import ast
 from ..Ui.widgets.pc_editableLabel import EditableLabel
+
+from os import listdir, path
+from time import ctime
+
+import re, sys, json, ast, math, platform, random
+
+
+PYTHON_VERSION = sys.version_info
+
+if PYTHON_VERSION < (3,0,0):
+    
+    from Settings import Colors
+    from AbstractGraph import *
+    from Edge import Edge
+    from Node import Node
+    from Node import NodeName
+    from GetVarNode import GetVarNode
+    from SetVarNode import SetVarNode
+    from SelectionRect import SelectionRect 
+    from Variable import VariableBase
+else:
+    
+    from .Settings import Colors
+    from .AbstractGraph import *
+    from .Edge import Edge
+    from .Node import Node
+    from .Node import NodeName
+    from .GetVarNode import GetVarNode
+    from .SetVarNode import SetVarNode
+    from .SelectionRect import SelectionRect  
+    from .Variable import VariableBase
+
 def clearLayout(layout):
     while layout.count():
         child = layout.takeAt(0)
@@ -824,8 +840,8 @@ class GraphWidget(QGraphicsView, Graph):
     def evalOutputsNode(self):
         #self.outputsItem.compute()
         for pin in self.outputsItem.inputs.values():
-            print pin
-            print pin.getData()
+            print (pin)
+            print (pin.getData())
 
     def new_file(self):
         self._current_file_name = 'Untitled'
@@ -1650,14 +1666,14 @@ class GraphWidget(QGraphicsView, Graph):
             instance = SetVarNode(var.name, self, var)
             return instance
         except:
-            print "Error on Variable DataTypes"
+            print ("Error on Variable DataTypes")
     def createVariableGetter(self, jsonTemplate):
         try:
             var = self.vars[uuid.UUID(jsonTemplate['meta']['var']['uuid'])]
             instance = GetVarNode(var.name, self, var)
             return instance
         except:
-            print "Error on Variable DataTypes"
+            print ("Error on Variable DataTypes")
 
     def _createNode(self, jsonTemplate):
         nodeInstance = getNodeInstance(Nodes, jsonTemplate['type'], jsonTemplate['name'], self)
