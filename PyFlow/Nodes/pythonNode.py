@@ -12,9 +12,12 @@ import uuid
 from types import MethodType
 from collections import OrderedDict
 import inspect
-import os
-from os import listdir, path, startfile
+import os, platform
+from os import listdir, path
 
+#This will be used to check what
+# platform PyFlow is running in.
+OS_PLATFORM = platform.system()
 
 
 class pythonNode(Node, NodeBase):
@@ -200,7 +203,10 @@ class {0}(Node):
             with open(file_path, "wb") as f:
                 f.write(NodeTemplate)
             print("[INFO] Node {0} been created.\nIn order to appear in node box, restart application.".format(name))
-            startfile(file_path)
+            if OS_PLATFORM == 'Windows':
+                os.system(file_path)
+            else:
+                os.system(file_path)            
             reload(Nodes)
             Nodes._getClasses()        
             
