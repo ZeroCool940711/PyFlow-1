@@ -1230,43 +1230,50 @@ class GraphWidget(QGraphicsView, Graph):
             node.setSelected(False)       
 
     def mousePressEvent(self, event):    
-        node = None
         self.pressed_item = self.itemAt(event.pos())
         modifiers = event.modifiers()
-        if not self.pressed_item:
-            if event.button() == QtCore.Qt.LeftButton:
-                self._manipulationMode = MANIP_MODE_SELECT
-                self._selectionRect = SelectionRect(graph=self, mouseDownPos=self.mapToScene(event.pos()))
-                self._mouseDownSelection = self.selectedNodes()
-                if modifiers not in  [QtCore.Qt.ShiftModifier,QtCore.Qt.ControlModifier]:
-                    super(GraphWidget, self).mousePressEvent(event)
-            else:
-                if hasattr(self,"_selectionRect") and self._selectionRect != None:
-                    self._selectionRect.destroy()
-                    self._selectionRect = None                    
-            if event.button() == QtCore.Qt.MiddleButton or event.button() == QtCore.Qt.MiddleButton and modifiers == QtCore.Qt.NoModifier:
-                self.viewport().setCursor(QtCore.Qt.OpenHandCursor)
-                self._manipulationMode = MANIP_MODE_PAN
-                self._lastPanPoint = self.mapToScene(event.pos())                
-            elif event.button() == QtCore.Qt.RightButton:
-                self.viewport().setCursor(QtCore.Qt.SizeHorCursor)
-                self._manipulationMode = MANIP_MODE_ZOOM
-                self._lastMousePos = event.pos()
-                self._lastTransform = QtGui.QTransform(self.transform())
-                self._lastSceneRect = self.sceneRect()
-                self._lastSceneCenter = self._lastSceneRect.center()
-                self._lastScenePos = self.mapToScene(event.pos())
-                self._lastOffsetFromSceneCenter = self._lastScenePos - self._lastSceneCenter
-            elif modifiers not in  [QtCore.Qt.ShiftModifier,QtCore.Qt.ControlModifier]:
-                super(GraphWidget, self).mousePressEvent(event) 
+        self.mousePressPose = event.pos()
+        node = self.nodeFromInstance(self.pressed_item)
+        if not self.pressed_item or isinstance(self.pressed_item,Nodes.commentNode.commentNode):
+            resizing = False
+            if isinstance(self.pressed_item,Nodes.commentNode.commentNode):
+                super(GraphWidget, self).mousePressEvent(event)
+                resizing = node.bResize
+                node.setSelected(False)
+            if not resizing:
+                if event.button() == QtCore.Qt.LeftButton and modifiers in [QtCore.Qt.NoModifier,QtCore.Qt.ShiftModifier,QtCore.Qt.ControlModifier]:
+                    self._manipulationMode = MANIP_MODE_SELECT
+                    self._selectionRect = SelectionRect(graph=self, mouseDownPos=self.mapToScene(event.pos()))
+                    self._mouseDownSelection = [node for node in self.selectedNodes()]
+                    if modifiers not in  [QtCore.Qt.ShiftModifier,QtCore.Qt.ControlModifier]:
+                        self.clearSelection()
+                        #super(GraphWidget, self).mousePressEvent(event)
+                else:
+                    if hasattr(self,"_selectionRect") and self._selectionRect != None:
+                        self._selectionRect.destroy()
+                        self._selectionRect = None    
+                LeftPaning = event.button() == QtCore.Qt.LeftButton and modifiers == QtCore.Qt.AltModifier
+                if event.button() == QtCore.Qt.MiddleButton or LeftPaning:
+                    self.viewport().setCursor(QtCore.Qt.OpenHandCursor)
+                    self._manipulationMode = MANIP_MODE_PAN
+                    self._lastPanPoint = self.mapToScene(event.pos())                
+                elif event.button() == QtCore.Qt.RightButton:
+                    self.viewport().setCursor(QtCore.Qt.SizeHorCursor)
+                    self._manipulationMode = MANIP_MODE_ZOOM
+                    self._lastMousePos = event.pos()
+                    self._lastTransform = QtGui.QTransform(self.transform())
+                    self._lastSceneRect = self.sceneRect()
+                    self._lastSceneCenter = self._lastSceneRect.center()
+                    self._lastScenePos = self.mapToScene(event.pos())
+                    self._lastOffsetFromSceneCenter = self._lastScenePos - self._lastSceneCenter
+            #elif modifiers not in  [QtCore.Qt.ShiftModifier,QtCore.Qt.ControlModifier]:
+            #    super(GraphWidget, self).mousePressEvent(event) 
             self.node_box.hide()
+
         elif not isinstance(self.pressed_item,EditableLabel):
-            self.mousePressPose = event.pos()
             if not isinstance(self.pressed_item, NodesBox) and self.node_box.isVisible():
                 self.node_box.hide()
                 self.node_box.lineEdit.clear()
-
-            modifiers = event.modifiers()
             if isinstance(self.pressed_item, QGraphicsItem):
                 #self.autoPanController.start()
                 if isinstance(self.pressed_item, PinBase):
@@ -1277,32 +1284,27 @@ class GraphWidget(QGraphicsView, Graph):
                     if modifiers == QtCore.Qt.AltModifier:
                         self.removeEdgeCmd(self.pressed_item.edge_list)
                 else:
-                    selected = self.selectedNodes()
-                    super(GraphWidget, self).mousePressEvent(event)
-                    if modifiers == QtCore.Qt.ShiftModifier:
-                        for node in  selected:
-                            node.setSelected(True)
+                    #super(GraphWidget, self).mousePressEvent(event)
                     if isinstance(self.pressed_item,Nodes.commentNode.commentNode):
-                        node = self.nodeFromInstance(self.pressed_item)
                         if node.bResize:
                             return
                     if event.button() == QtCore.Qt.MidButton:    
                         if modifiers != QtCore.Qt.ShiftModifier:
                             self.clearSelection()
-                        self.pressed_node = self.nodeFromInstance(self.pressed_item)
-                        self.pressed_node.setSelected(True)
+                        node.setSelected(True)
                         selectedNodes = self.selectedNodes()    
                         if len(selectedNodes) > 0:                               
                             for node in  selectedNodes:
                                 for n in node.getChainedNodes():
                                     n.setSelected(True)
-                                node.setSelected(True)
-                                if isinstance(node,Nodes.commentNode.commentNode):
-                                    for n in node.nodesToMove:
-                                        n.setSelected(True)                       
+                                node.setSelected(True)                     
                     else:
-                        self.pressed_item.setSelected(True)
-
+                        if modifiers == QtCore.Qt.NoModifier:
+                            super(GraphWidget, self).mousePressEvent(event)
+                        if modifiers == QtCore.Qt.ControlModifier:
+                            node.setSelected(not node.isSelected())
+                        if modifiers == QtCore.Qt.ShiftModifier:
+                            node.setSelected(True)   
                     if all([(event.button() == QtCore.Qt.MidButton or event.button() == QtCore.Qt.LeftButton ), modifiers == QtCore.Qt.NoModifier]):
                         self._manipulationMode = MANIP_MODE_MOVE
                         self._lastDragPoint =self.mapToScene(event.pos())
@@ -1319,6 +1321,21 @@ class GraphWidget(QGraphicsView, Graph):
     def mouseMoveEvent(self, event):
 
         self.mousePos = event.pos()
+        
+        if self.itemAt(event.pos()) and isinstance(self.itemAt(event.pos()),Nodes.commentNode.commentNode):
+            node = self.nodeFromInstance(self.itemAt(event.pos()))
+            node.getCursorResizing(self.mapToScene(event.pos()))
+            if node.cursorResize:
+                if node.resizeDirectionArrow == 0:
+                    self.viewport().setCursor(QtCore.Qt.SizeFDiagCursor)
+                elif node.resizeDirectionArrow == 1:
+                    self.viewport().setCursor(QtCore.Qt.SizeHorCursor)
+                elif node.resizeDirectionArrow == 2:
+                    self.viewport().setCursor(QtCore.Qt.SizeVerCursor)                    
+            else:
+                self.viewport().setCursor(QtCore.Qt.ArrowCursor)
+        else:
+            self.viewport().setCursor(QtCore.Qt.ArrowCursor)
 
         if self._draw_real_time_line:
             if isinstance(self.pressed_item, PinBase):
@@ -1344,11 +1361,15 @@ class GraphWidget(QGraphicsView, Graph):
                 self._selectionRect.setDragPoint(dragPoint)
                 # This logic allows users to use ctrl and shift with rectangle
                 # select to add / remove nodes.
+                if isinstance(self.pressed_item,Nodes.commentNode.commentNode):
+                    nodes = [node for node in self.getNodes() if not isinstance(node,Nodes.commentNode.commentNode)]
+                else:
+                    nodes = self.getNodes()                
                 if modifiers == QtCore.Qt.ControlModifier:
-                    for node in self.getNodes():
+                    for node in nodes:
                         if node not in [self.inputsItem,self.outputsItem]:
                             if node in self._mouseDownSelection:
-                                if node.isSelected() and self._selectionRect.collidesWithItem(node):
+                                if node.isSelected() and self._selectionRect.collidesWithItem(node) :
                                     node.setSelected(False)
                                 elif not node.isSelected() and not self._selectionRect.collidesWithItem(node):
                                     node.setSelected(True)
@@ -1360,7 +1381,7 @@ class GraphWidget(QGraphicsView, Graph):
                                         node.setSelected(False)
 
                 elif modifiers == QtCore.Qt.ShiftModifier:
-                    for node in self.getNodes():
+                    for node in nodes:
                         if node not in [self.inputsItem,self.outputsItem]:
                             if not node.isSelected() and self._selectionRect.collidesWithItem(node):
                                 node.setSelected(True)
@@ -1370,7 +1391,7 @@ class GraphWidget(QGraphicsView, Graph):
 
                 else:
                     self.clearSelection()
-                    for node in self.getNodes():
+                    for node in nodes:
                         if node not in [self.inputsItem,self.outputsItem]:
                             if not node.isSelected() and self._selectionRect.collidesWithItem(node):
                                 node.setSelected(True)
@@ -1382,21 +1403,10 @@ class GraphWidget(QGraphicsView, Graph):
                 delta = newPos - self._lastDragPoint
                 self._lastDragPoint = self.mapToScene(event.pos())
                 selectedNodes = self.selectedNodes()
-                nodeOut = False
-                direction = 0
                 # Apply the delta to each selected node
                 for node in selectedNodes:
                     if node not in [self.inputsItem,self.outputsItem]:
-                        if isinstance(node,Nodes.commentNode.commentNode):
-                            for n in node.nodesToMove:
-                                if not n.isSelected():
-                                    n.translate(delta.x(), delta.y())
                         node.translate(delta.x(), delta.y())
-
-                if nodeOut:
-                    rect = self.sceneRect()
-                    rect.translate(delta.x(), delta.y())
-                    self.setSceneRect(rect)
 
             elif self._manipulationMode == MANIP_MODE_PAN:
                 delta = self.mapToScene(event.pos()) - self._lastPanPoint
@@ -1458,8 +1468,9 @@ class GraphWidget(QGraphicsView, Graph):
         self._resize_group_mode = False
 
         for n in self.getNodes():
-            n.setFlag(QGraphicsItem.ItemIsMovable)
-            n.setFlag(QGraphicsItem.ItemIsSelectable)
+            if not isinstance(n,Nodes.commentNode.commentNode):
+                n.setFlag(QGraphicsItem.ItemIsMovable)
+                n.setFlag(QGraphicsItem.ItemIsSelectable)
 
         if self._draw_real_time_line:
             self._draw_real_time_line = False

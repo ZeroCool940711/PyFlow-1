@@ -31,8 +31,26 @@ class commentNodeName(NodeName):
         self.setFlag(QGraphicsItem.ItemSendsGeometryChanges)
         self.setDefaultTextColor(QtGui.QColor(255, 255, 255, 255))
         self.roundCornerFactor = 5
-        self.setTextInteractionFlags(QtCore.Qt.TextEditorInteraction)
+        self.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
         self.width = self.document().documentLayout().documentSize().width()
+        self.icon = QtGui.QImage(':/icons/resources/py.png')
+    def mousePressEvent(self, event):
+        if not self.parentItem().isSelected():
+            self.parentItem().graph().clearSelection()
+        if self.parentItem().expanded:
+            self.parentItem().nodesToMove.clear()
+            self.parentItem().updateChildrens(self.parentItem().collidingItems())
+        self.parentItem().setSelected(True)
+        #NodeName.mousePressEvent(self, event)
+     
+    def mouseDoubleClickEvent(self, event):
+        super(commentNodeName, self).mouseDoubleClickEvent( event)
+        event.accept()
+        self.setTextInteractionFlags(QtCore.Qt.TextEditorInteraction)
+
+    def focusOutEvent(self,event):
+        super(commentNodeName, self).focusOutEvent( event)
+        self.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
 
     def keyPressEvent(self, event):
 
@@ -46,8 +64,8 @@ class commentNodeName(NodeName):
             cursor.clearSelection()
             self.setTextCursor(cursor)
             # finish editing
-            self.setEnabled(False)
-            self.setEnabled(True)
+            self.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
+
         elif not key == QtCore.Qt.Key_Backspace:
             # if backspace is pressed do not change width
             width = self.document().documentLayout().documentSize().width()
@@ -60,6 +78,7 @@ class commentNodeName(NodeName):
         self.width = self.parentItem().rect.width()
         self.setTextWidth(self.width)
         self.update()
+
 
     def adjustSizes(self):
         self.parentItem().rect.setRight(self.width)
@@ -84,6 +103,7 @@ class commentNodeName(NodeName):
         r.setHeight(r.height()-1)  
         painter.drawRoundedRect(1, 1, r.width(), r.height(), self.roundCornerFactor, self.roundCornerFactor, QtCore.Qt.AbsoluteSize)
         painter.drawRect(1, r.height() * 0.5 + 2, r.width(), r.height() * 0.5)
+        parentRet = self.parentItem().childrenBoundingRect()
 
         #painter.drawRoundedRect(r, self.roundCornerFactor, self.roundCornerFactor)
 
@@ -119,7 +139,8 @@ class commentNode(Node, NodeBase):
         self.lastMousePos = QtCore.QPointF()
         self.setZValue(-2)
         self.expanded = True
-
+        #self.setFlag(QGraphicsItem.ItemIsMovable, False)
+        #self.setFlag(QGraphicsItem.ItemIsSelectable, False)
     def onChangeColor(self):
         res = QColorDialog.getColor(self.color, None, 'Comment node color setup')
         if res.isValid():
@@ -204,38 +225,6 @@ class commentNode(Node, NodeBase):
     def boundingRect(self):
         return self.rect
 
-    def mousePressEvent(self, event):
-        QGraphicsItem.mousePressEvent(self, event)
-        self.mousePressPos = event.scenePos()
-        self.lastNodePos = self.scenePos()
-        pBottomRight = self.rect.bottomRight()
-        bottomRightRect = QtCore.QRectF(pBottomRight.x() - 6, pBottomRight.y() - 6, 5, 5)
-        # detect where on the node
-        if bottomRightRect.contains(event.pos()) and self.expanded:
-            self.initialRectWidth = self.rect.width()
-            self.initialRectHeight = self.rect.height()
-            self.resizeDirection = (1, 1)
-            self.setFlag(QGraphicsItem.ItemIsMovable, False)
-            self.bResize = True
-        elif event.pos().x() > (self.rect.width() - 20) and self.expanded:
-            self.initialRectWidth = self.rect.width()
-            self.resizeDirection = (1, 0)
-            self.setFlag(QGraphicsItem.ItemIsMovable, False)
-            self.bResize = True
-        elif (event.pos().y() + self.label().defaultHeight) > (self.rect.height() - 30) and self.expanded:
-            self.initialRectHeight = self.rect.height()
-            self.resizeDirection = (0, 1)
-            self.setFlag(QGraphicsItem.ItemIsMovable, False)
-            self.bResize = True
-        if self.expanded:
-            self.nodesToMove.clear()
-            self.updateChildrens(self.collidingItems())                         
-        else:
-            nodes = []
-            for nodename in  self.nodesNamesToMove:
-                nodes.append(self.graph().nodes[nodename])            
-            self.updateChildrens(nodes)
-
     def updateChildrens(self,nodes):
         self.commentInputs =[]
         self.commentOutpus = []
@@ -259,6 +248,78 @@ class commentNode(Node, NodeBase):
                     if edg.source().parent() in self.nodesToMove and edg.destination().parent() in self.nodesToMove:
                         self.edgesToHide.append(edg)         
 
+    def getCursorResizing(self,cursorPos):
+        pBottomRight = self.rect.bottomRight()
+        pBottomLeft = self.rect.bottomLeft()
+        margin = 4
+        bottomRightRect = QtCore.QRectF(pBottomRight.x() - margin, pBottomRight.y() - margin,margin,margin)
+        bottomLeftRect = QtCore.QRectF(pBottomLeft.x(), pBottomLeft.y()+margin, 5, 5)
+        # detect where on the node
+        self.cursorResize = False
+        self.resizeDirectionArrow = 0
+        if self.expanded:
+            cursor = self.mapFromScene(cursorPos)
+            if bottomRightRect.contains(cursor): 
+                self.resizeDirectionArrow = 0
+                self.cursorResize = True
+            elif cursor.x() > (self.rect.width() - margin):
+                self.resizeDirectionArrow = 1
+                self.cursorResize = True
+            elif (cursor.y() + self.label().defaultHeight) > (self.rect.height() - 10):
+                self.resizeDirectionArrow = 2
+                self.cursorResize = True
+            #elif cursor.x() < (self.rect.x() + margin):
+            #    self.resizeDirectionArrow = 1
+            #    self.cursorResize = True
+            #elif cursor.y()    > (self.rect.y()+self.label().h- margin ):
+            #    self.resizeDirectionArrow = 2
+            #    self.cursorResize = True                
+            #elif bottomLeftRect.contains(cursor):
+            #    self.resizeDirectionArrow = 0
+            #    self.cursorResize = True                
+
+    def mousePressEvent(self, event):
+        margin = 4
+        QGraphicsItem.mousePressEvent(self, event)
+        self.mousePressPos = event.scenePos()
+        self.lastNodePos = self.scenePos()
+        pBottomRight = self.rect.bottomRight()
+        pBottomLeft = self.rect.bottomLeft()
+        bottomRightRect = QtCore.QRectF(pBottomRight.x() - 6, pBottomRight.y() - 6, 5, 5)
+        bottomLeftRect = QtCore.QRectF(pBottomLeft.x() - 6, pBottomLeft.y() - 6, 5, 5)
+        # detect where on the node
+        self.initialRect = self.rect
+        if bottomRightRect.contains(event.pos()) and self.expanded:
+            self.initialRectWidth = self.rect.width()
+            self.initialRectHeight = self.rect.height()
+            self.resizeDirection = (1, -1)
+            self.setFlag(QGraphicsItem.ItemIsMovable, False)
+            self.bResize = True
+        elif event.pos().x() > (self.rect.width() - margin) and self.expanded:
+            self.initialRectWidth = self.rect.width()
+            self.resizeDirection = (1, 0)
+            self.setFlag(QGraphicsItem.ItemIsMovable, False)
+            self.bResize = True         
+        elif (event.pos().y() + self.label().defaultHeight) > (self.rect.height() - 10) and self.expanded:
+            self.initialRectHeight = self.rect.height()
+            self.resizeDirection = (0, -1)
+            self.setFlag(QGraphicsItem.ItemIsMovable, False)
+            self.bResize = True
+        #elif event.pos().x() < (self.rect.x() + margin):
+        #    self.initialRectWidth = self.rect.width()
+        #    self.resizeDirection = (-1, 0)
+        #    self.setFlag(QGraphicsItem.ItemIsMovable, False)
+        #    self.bResize = True   
+
+        if self.expanded:
+            self.nodesToMove.clear()
+            self.updateChildrens(self.collidingItems())                         
+        else:
+            nodes = []
+            for nodename in  self.nodesNamesToMove:
+                nodes.append(self.graph().nodes[nodename])            
+            self.updateChildrens(nodes)
+            
     def mouseMoveEvent(self, event):
         QGraphicsItem.mouseMoveEvent(self, event)
         delta = self.lastMousePos - event.pos()
@@ -273,28 +334,29 @@ class commentNode(Node, NodeBase):
                     self.label().width = newWidth
                     self.rect.setRight(newWidth)
                     self.label().adjustSizes()
-
-            elif self.resizeDirection == (0, 1):
+            elif self.resizeDirection == (0, -1):
                 newHeight = delta.y() + self.initialRectHeight
                 newHeight = max(newHeight, self.label().h + 20.0)
                 if newHeight > self.minHeight:
                     # bottom edge resize
                     self.rect.setHeight(newHeight)
-            elif self.resizeDirection == (1, 1):
+            elif self.resizeDirection == (1, -1):
                 newWidth = delta.x() + self.initialRectWidth
-                #newWidth = roundup(newWidth, self.graph().grid_size)
-
                 newHeight = delta.y() + self.initialRectHeight
                 newHeight = max(newHeight, self.label().h + 20.0)
                 if newHeight > self.minHeight and newWidth > self.minWidth:
                     self.label().width = newWidth
                     self.rect.setRight(newWidth)
                     self.label().setTextWidth(newWidth)
-                    self.rect.setHeight(newHeight)
+                    self.rect.setHeight(newHeight)                   
 
             self.update()
             self.label().update()
         self.lastMousePos = event.pos()
+
+    def mouseReleaseEvent(self, event):
+        QGraphicsItem.mouseReleaseEvent(self, event)
+        self.bResize = False
 
     def mouseDoubleClickEvent(self, event):
         super(commentNode, self).mouseDoubleClickEvent( event)
@@ -331,6 +393,12 @@ class commentNode(Node, NodeBase):
                 edge.show()                               
         self.update()           
 
+    def translate(self,x,y):
+        for n in self.nodesToMove:
+            if not n.isSelected():
+                n.translate(x, y)
+        super(commentNode, self).translate( x,y)     
+
     @staticmethod
     def getNodesRect(nodes):
         rectangles = []
@@ -353,10 +421,6 @@ class commentNode(Node, NodeBase):
         max_y = max(maxy_arr)
 
         return QtCore.QRect(QtCore.QPoint(min_x, min_y), QtCore.QPoint(max_x, max_y))
-
-    def mouseReleaseEvent(self, event):
-        QGraphicsItem.mouseReleaseEvent(self, event)
-        self.bResize = False
 
     def paint(self, painter, option, widget):
         painter.setPen(QtCore.Qt.NoPen)
@@ -388,18 +452,6 @@ class commentNode(Node, NodeBase):
 
         pen.setWidth(1)
         painter.setPen(pen)
-
-        # draw right resizer
-        midY = self.rect.center().y()
-        pTop = QtCore.QPoint(self.rect.width() - 5, midY - 5)
-        pBottom = QtCore.QPoint(self.rect.width() - 5, midY + 5)
-        painter.drawLine(pTop, pBottom)
-
-        # draw bottom resizer
-        midX = self.rect.center().x()
-        pLeft = QtCore.QPoint(midX - 5, self.rect.bottom() - 5)
-        pRight = QtCore.QPoint(midX + 5, self.rect.bottom() - 5)
-        painter.drawLine(pLeft, pRight)
 
     def onUpdatePropertyView(self, formLayout):
 
