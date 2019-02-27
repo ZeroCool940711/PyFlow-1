@@ -10,7 +10,6 @@ class AnyPin(PinWidgetBase):
         self.origDataType = DataTypes.Any
         self._free = True
         self.origSetData = self.setData
-        self.origSetData = self.setData
         self.super = None
     def supportedDataTypes(self):
         return self.supportedDataTypesList
@@ -130,7 +129,6 @@ class AnyPin(PinWidgetBase):
         for e in self.edge_list:
             e.highlight()
             
-       
     def setDefault(self):
         self.super = None
         self.dataType = DataTypes.Any
@@ -140,6 +138,7 @@ class AnyPin(PinWidgetBase):
             e.setColor( self.color())
         self.OnPinChanged.emit(self)   
         self.update()
+
     def setType(self,other):
         self.super = other.__class__
         self.dataType = other.dataType
