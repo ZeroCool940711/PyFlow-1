@@ -2,10 +2,10 @@ from ..Core.AbstractGraph import *
 from ..Core.Settings import *
 from ..Core import Node
 
-class SelectFile(Node):
+class InputFile(Node):
 	def __init__(self, name, graph):
-		super(SelectFile, self).__init__(name, graph)
-		self.Select_File = self.addInputPin("Select_File", DataTypes.Exec,self.compute,hideLabel=True)
+		super(InputFile, self).__init__(name, graph)
+		self.Input_File = self.addInputPin("Input_File", DataTypes.Exec,self.compute,hideLabel=True)
 		self.output = self.addOutputPin("output", DataTypes.String,hideLabel=False)
 
 		for i in self.inputs.values():
@@ -32,7 +32,7 @@ class SelectFile(Node):
 		'''
 		    used by nodebox filter while typing
 		'''
-		return ['Input', 'SelectFile', 'InputFile']
+		return ['Input', 'Input_File']
 
 	@staticmethod
 	def description():
