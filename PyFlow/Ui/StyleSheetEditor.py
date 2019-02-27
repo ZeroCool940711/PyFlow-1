@@ -37,7 +37,7 @@ class StyleSheetEditor(QtWidgets.QWidget):
 		self.setColor(self.style.MainColor)
 		self.bgColor.setValue(0.196)
 		self.main_light.setValue(self.MainColor.lightnessF())
-
+		self.USETEXTUREBG = True
 	def setColor(self,color):
 		self.MainColor = color
 		self.main_hue.setColor(color)

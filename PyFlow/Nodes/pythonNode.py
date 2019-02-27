@@ -31,9 +31,10 @@ class pythonNode(Node, NodeBase):
         self.actionExport.triggered.connect(self.export)
         self.editorUUID = None
         self.bKillEditor = True
+        self.label().color = QtGui.QColor(28, 67, 93, 200) 
         self.label().icon = QtGui.QImage(':/icons/resources/py.png')
         self.currentComputeCode = Node.jsonTemplate()['computeCode']
-        self.color = Colors.NodeNameRect
+        #self.color = Colors.NodeNameRect
 
     @staticmethod
     def pinTypeHints():

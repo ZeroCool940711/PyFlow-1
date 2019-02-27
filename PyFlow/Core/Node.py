@@ -31,9 +31,8 @@ from NodePainter import NodePainter
 from Enums import ENone
 from ..Ui.widgets.pc_editableLabel import EditableLabel
 
-
 class NodeName(QGraphicsTextItem):
-    def __init__(self, parent, bUseTextureBg=True, color=Colors.Green):
+    def __init__(self, parent, bUseTextureBg=True, color=Colors.NodeNameRectGreen):
         super(NodeName, self).__init__(parent)
         self.setParentItem(parent)
         self.bUseTextureBg = bUseTextureBg
@@ -54,7 +53,10 @@ class NodeName(QGraphicsTextItem):
         self.setPos(0, -self.boundingRect().height() - 8)
         self.color = color
         self.clipRect = None
-        self.roundCornerFactor = 10
+        if self.parentItem().bUseTextureBg:
+            self.roundCornerFactor = 1.0
+        else:
+            self.roundCornerFactor = 10
         self.bg = QtGui.QImage(':/icons/resources/white.png')
         self.icon = None
 
@@ -78,34 +80,29 @@ class NodeName(QGraphicsTextItem):
         return QtCore.QRectF(0, 0, self.width + 5.0, self.h)
 
 
-
     def paint(self, painter, option, widget):
-        r = QtCore.QRectF(option.rect)
-        r.setWidth(self.parentItem().childrenBoundingRect().width() -1)
-        #r.setX(0.25)
-        #r.setY(0.25)
+        if self.parentItem().bUseTextureBg:
 
-        b = QtGui.QLinearGradient(0, 0, 0, r.height())
-        b.setColorAt(0, QtGui.QColor(0, 0, 0, 0))
-        b.setColorAt(0.25, self.color)
-        b.setColorAt(1, self.color)
-        painter.setPen(QtCore.Qt.NoPen)
-        b = QtGui.QBrush(self.bg)
-        if self.bUseTextureBg:
-            b.setStyle(QtCore.Qt.TexturePattern)
-            painter.setBrush(b)
+            r = QtCore.QRectF(option.rect)
+            r.setWidth(self.parentItem().childrenBoundingRect().width() - 0.25)
+            r.setX(0.25)
+            r.setY(0.25)
+            b = QtGui.QLinearGradient(0, 0, r.width(), r.height())
+            b.setColorAt(0, self.color.lighter(60))
+            b.setColorAt(0.5, self.color)
+            b.setColorAt(1, self.color.darker(50))
+            painter.setPen(QtCore.Qt.NoPen)
+            path = QtGui.QPainterPath()
+            path.addRoundedRect(r, self.parentItem().sizes[4],self.parentItem().sizes[5]);
+            painter.fillPath(path, b)
+            painter.drawPath(path)           
+            parentRet = self.parentItem().childrenBoundingRect()
+            if self.icon:
+                painter.drawImage(QtCore.QRect(parentRet.width() - 9, 0, 8, 8), self.icon, QtCore.QRect(0, 0, self.icon.width(), self.icon.height()))
         else:
-            painter.setBrush(self.color)
-            b.setStyle(QtCore.Qt.SolidPattern)
-
-        r.setHeight(r.height()-1)  
-        #painter.drawRoundedRect(1, 1, r.width(), r.height(), self.roundCornerFactor, self.roundCornerFactor, QtCore.Qt.AbsoluteSize)
-        #painter.drawRect(1, r.height() * 0.5 + 2, r.width(), r.height() * 0.5)
-
-        parentRet = self.parentItem().childrenBoundingRect()
-        if self.icon:
-            painter.drawImage(QtCore.QRect(parentRet.width() - 12, 5, 8, 8), self.icon, QtCore.QRect(0, 0, self.icon.width(), self.icon.height()))
-
+            parentRet = self.parentItem().childrenBoundingRect()
+            if self.icon:
+                painter.drawImage(QtCore.QRect(parentRet.width() - 12, 5, 8, 8), self.icon, QtCore.QRect(0, 0, self.icon.width(), self.icon.height()))            
         super(NodeName, self).paint(painter, option, widget)
 
     def focusInEvent(self, event):
@@ -123,7 +120,7 @@ class Node(QGraphicsItem, NodeBase):
     """
     Default node description
     """
-    def __init__(self, name, graph, w=8000, color=Colors.NodeBackgrounds, headColor=Colors.NodeNameRect, bUseTextureBg=False):
+    def __init__(self, name, graph, w=8000, color=Colors.NodeBackgrounds, headColor=Colors.NodeNameRectGreen, bUseTextureBg=True):
         QGraphicsItem.__init__(self)
         NodeBase.__init__(self, name, graph)
         self.setCacheMode(QGraphicsItem.DeviceCoordinateCache)
@@ -137,7 +134,11 @@ class Node(QGraphicsItem, NodeBase):
         self.nodeMainGWidget.setObjectName('{0}MainLayout'.format(name))
         self._w = 0
         self.h = 40
-        self.sizes = [0, 0, self.w, self.h, 10, 10]
+        self.bUseTextureBg = self.graph().styleSheetEditor.USETEXTUREBG
+        if self.bUseTextureBg:
+            self.sizes = [0, 0, self.w, self.h, 2, 2]
+        else:
+            self.sizes = [0, 0, self.w, self.h, 10, 10]
         self.w = w
         self.setFlag(QGraphicsItem.ItemIsMovable)
         self.setFlag(QGraphicsItem.ItemIsFocusable)
@@ -145,7 +146,7 @@ class Node(QGraphicsItem, NodeBase):
         self.setFlag(QGraphicsItem.ItemSendsGeometryChanges)
         self.custom_widget_data = {}
         # node name
-        self.label = weakref.ref(NodeName(self, bUseTextureBg, headColor))
+        self.label = weakref.ref(NodeName(self, self.bUseTextureBg, headColor))
         # set node layouts
         self.nodeMainGWidget.setParentItem(self)
         # main
@@ -211,7 +212,8 @@ class Node(QGraphicsItem, NodeBase):
     @staticmethod
     ## Constructs a node from given annotated function and adds it to the canvas
     def initializeFromFunction(foo, graph):
-        color = foo.__annotations__["color"]
+        #color = foo.__annotations__["color"]
+
         retAnyOpts = None
         retConstraint = None
         meta = foo.__annotations__['meta']
@@ -227,6 +229,8 @@ class Node(QGraphicsItem, NodeBase):
 
         nodeType = foo.__annotations__['nodeType']
         fooArgNames = getargspec(foo).args
+        color = meta["Color"]
+        headColor = meta["HeadColor"]
 
         @staticmethod
         def description():
@@ -248,7 +252,7 @@ class Node(QGraphicsItem, NodeBase):
                                                  'keywords': keywords,
                                                  'description': description
                                                  })
-        inst = nodeClass(graph.getUniqNodeName(foo.__name__), graph,color = color)
+        inst = nodeClass(graph.getUniqNodeName(foo.__name__), graph,color = color,headColor = headColor)
 
         if returnType is not None:
             structClass = type(returnDefaultValue) if returnType == DataTypes.Enum else ENone
@@ -405,11 +409,7 @@ class Node(QGraphicsItem, NodeBase):
         self.nodeMainGWidget.setGeometry(QtCore.QRectF(0, 0, self.w, self.childrenBoundingRect().height()))
         if self.isCallable():
             if 'flow' not in self.category().lower():
-                if self.label().bUseTextureBg:
-                    self.label().bg = QtGui.QImage(':/icons/resources/blue.png')
-        else:
-            if self.label().bUseTextureBg:
-                self.label().bg = QtGui.QImage(':/icons/resources/green.png')
+                self.label().color = Colors.NodeNameRectBlue
         self.setToolTip(self.description())
         self.update()
 
@@ -485,6 +485,7 @@ class Node(QGraphicsItem, NodeBase):
 
     def paint(self, painter, option, widget):
         #self.updateConstraints()
+        self.bUseTextureBg = self.graph().styleSheetEditor.USETEXTUREBG
         NodePainter.default(self, painter, option, widget)
 
 

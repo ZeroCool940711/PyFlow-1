@@ -24,7 +24,7 @@ class NodePainter(object):
         painter.setBrush(QtCore.Qt.darkGray)
 
         color = node.color
-        color.setAlpha(200)
+        color.setAlpha(230)
         if node.isSelected():
             color = color.lighter(150)
         if node.isTemp:

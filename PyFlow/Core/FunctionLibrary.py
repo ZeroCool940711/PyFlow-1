@@ -18,13 +18,18 @@ empty = {}
 # @param[in] meta dictionary with category path, keywords and any additional info
 # @param[in] nodeType determines wheter it is a Pure node or Callable. If Callable - input and output execution pins will be created
 # @sa [NodeTypes](@ref PyFlow.Core.AGraphCommon.NodeTypes) FunctionLibraries
-def IMPLEMENT_NODE(func=None, returns=empty, meta={'Category': 'Default', 'Keywords': []}, nodeType=NodeTypes.Pure,color=Colors.NodeBackgrounds):
+def IMPLEMENT_NODE(func=None, returns=empty, meta={'Category': 'Default', 'Keywords': [],"Color":Colors.NodeBackgrounds}, nodeType=NodeTypes.Pure):
     def wrapper(func):
         func.__annotations__ = getattr(func, '__annotations__', {})
         func.__annotations__['nodeType'] = nodeType
-        func.__annotations__['color'] = color
+        #func.__annotations__['color'] = color
         if not meta == empty:
+            if not "Color" in meta:
+                meta["Color"]=Colors.NodeBackgrounds
+            if not "HeadColor" in meta:
+                meta["HeadColor"]=Colors.NodeNameRectGreen                
             func.__annotations__['meta'] = meta
+            
 
         if not returns == empty:
             func.__annotations__['return'] = returns

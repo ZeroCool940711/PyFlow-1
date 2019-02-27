@@ -28,9 +28,13 @@ class Colors:
 
     GREYDARK =         QtGui.QColor(30, 30, 30)
 
-    NodeBackgrounds = QtGui.QColor(80, 80, 80, 200)
+    NodeBackgrounds = QtGui.QColor(40, 40, 40, 200)
     NodeSelectedPenColor = QtGui.QColor(200, 200, 200, 150)
-    NodeNameRect = QtGui.QColor(80, 80, 100, 200)
+    NodeNameRect = QtGui.QColor(30, 80, 30, 200)
+
+    NodeNameRectGreen = QtGui.QColor(74, 124, 39, 200)
+    NodeNameRectBlue = QtGui.QColor(28, 74, 149, 200) 
+       
     CommentNodeBrush = QtGui.QColor(100, 100, 100, 40)
     CommentNodeNameBackground = QtGui.QColor(100, 100, 100, 40)
     CommentNodePen = QtGui.QColor(0, 0, 0, 100)
