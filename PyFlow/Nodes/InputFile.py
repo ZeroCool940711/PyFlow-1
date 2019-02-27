@@ -32,7 +32,7 @@ class SelectFile(Node):
 		'''
 		    used by nodebox filter while typing
 		'''
-		return []
+		return ['Input', 'SelectFile', 'InputFile']
 
 	@staticmethod
 	def description():
